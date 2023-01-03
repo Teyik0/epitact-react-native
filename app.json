@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "EpitactNative",
-    "slug": "EpitactNative",
-    "version": "1.0.0",
+    "name": "Epitact",
+    "slug": "epitact-native",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -24,10 +24,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.teyik0.epitactnative"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a4269326-06ef-431c-87b8-7254afe1f824"
+      }
+    },
+    "owner": "teyik0"
   }
 }
