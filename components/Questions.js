@@ -1,85 +1,97 @@
 import { View, Text, StyleSheet, Dimensions, Pressable } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import Animated from 'react-native-reanimated';
+import React, { useEffect, useState } from 'react';
+import Animated, {
+  FadeInUp,
+  Layout,
+  FadeOutDown,
+} from 'react-native-reanimated';
 
 const Questions = ({
-  question1,
-  question2,
-  question3,
+  question,
+  ans1,
+  ans2,
+  ans3,
   setAnswer,
+  step,
+  currentStep,
   setStep,
-  backToPreviousStep,
 }) => {
-  const [toggle1, setToggle1] = useState('white');
-  const [toggle2, setToggle2] = useState('white');
-  const [toggle3, setToggle3] = useState('white');
+  const [isToggle, setIsToggle] = useState({
+    firstAns: false,
+    secondAns: false,
+    thirdAns: false,
+  });
   const handleClick1 = () => {
-    setToggle1('gray');
-    setTimeout(() => {
-      setAnswer(1);
-      setStep((prev) => prev + 1);
-    }, 400);
+    setIsToggle({ firstAns: true, secondAns: false, thirdAns: false });
+    setAnswer(1);
+    setStep(step + 1);
   };
   const handleClick2 = () => {
-    setToggle2('gray');
-    setTimeout(() => {
-      setAnswer(2);
-      setStep((prev) => prev + 1);
-    }, 400);
+    setIsToggle({ firstAns: false, secondAns: true, thirdAns: false });
+    setAnswer(2);
+    setStep(step + 1);
   };
   const handleClick3 = () => {
-    setToggle3('gray');
-    setTimeout(() => {
-      setAnswer(3);
-      setStep((prev) => prev + 1);
-    }, 400);
+    setIsToggle({ firstAns: false, secondAns: false, thirdAns: true });
+    setAnswer(3);
+    setStep(step + 1);
   };
+
   useEffect(() => {
-    setToggle1('white');
-    setToggle2('white');
-    setToggle3('white');
-  }, [backToPreviousStep]);
+    if (currentStep === step) {
+      setIsToggle({ firstAns: false, secondAns: false, thirdAns: false });
+    }
+  }, [currentStep]);
 
   return (
-    <Animated.View>
+    <Animated.View
+      style={{ marginTop: Dimensions.get('window').width * 0.05 }}
+      entering={FadeInUp.duration(500)}
+      layout={Layout.springify()}
+      exiting={FadeOutDown.duration(300)}
+    >
       <Text
         style={{
-          textAlign: 'center',
-          marginBottom: 15,
-          fontStyle: 'italic',
-          color: 'gray',
+          marginBottom: Dimensions.get('window').height * 0.015,
+          marginLeft: Dimensions.get('window').width * 0.05,
           fontSize: Dimensions.get('window').width * 0.025,
+          color: 'black',
+          fontWeight: 'bold',
         }}
       >
-        Cliquez pour répondre
+        {question}
       </Text>
       <View style={styles.container}>
+        {/* FirstQuestion */}
         <Pressable
           onPress={handleClick1}
-          style={
-            question3
-              ? { ...styles.questionBlockThree, backgroundColor: toggle1 }
-              : { ...styles.questionBlock, backgroundColor: toggle1 }
-          }
+          style={{
+            ...styles.questionBlock,
+            backgroundColor: isToggle.firstAns ? 'gray' : 'white',
+          }}
         >
-          <Text style={styles.textStyle}>{question1}</Text>
+          <Text style={styles.textStyle}>{ans1}</Text>
         </Pressable>
+        {/* SecondQuestion */}
         <Pressable
           onPress={handleClick2}
-          style={
-            question3
-              ? { ...styles.questionBlockThree, backgroundColor: toggle2 }
-              : { ...styles.questionBlock, backgroundColor: toggle2 }
-          }
+          style={{
+            ...styles.questionBlock,
+            backgroundColor: isToggle.secondAns ? 'gray' : 'white',
+          }}
         >
-          <Text style={styles.textStyle}>{question2}</Text>
+          <Text style={styles.textStyle}>{ans2}</Text>
         </Pressable>
-        {question3 && (
+        {/* ThirdQuestion */}
+        {ans3 && (
           <Pressable
             onPress={handleClick3}
-            style={{ ...styles.questionBlockThree, backgroundColor: toggle3 }}
+            style={{
+              ...styles.questionBlock,
+              backgroundColor: isToggle.thirdAns ? 'gray' : 'white',
+            }}
           >
-            <Text style={styles.textStyle}>{question3}</Text>
+            <Text style={styles.textStyle}>{ans3}</Text>
           </Pressable>
         )}
       </View>
@@ -92,14 +104,13 @@ export default Questions;
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: Dimensions.get('window').width,
-    marginBottom: Dimensions.get('window').height * 0.04,
   },
   questionBlock: {
-    width: Dimensions.get('window').width * 0.45,
+    width: Dimensions.get('window').width * 0.9,
     height: Dimensions.get('window').height * 0.1,
     borderColor: 'gray',
     borderWidth: 1,
@@ -107,16 +118,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  questionBlockThree: {
-    width: Dimensions.get('window').width * 0.3,
-    height: Dimensions.get('window').height * 0.1,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 15,
-    elevation: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginBottom: Dimensions.get('window').height * 0.015,
   },
   textStyle: {
     textAlign: 'center',

@@ -7,13 +7,35 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Carrousel } from '../components';
 import { data } from '../utils/data';
 import logo from '../assets/logo.png';
 
 const Home = ({ navigation }) => {
   const [currentSympt, setCurrentSympt] = useState(0);
+  const [isPressed, setIsPressed] = useState([]);
+  //Créer un nouveau tableau avec la même taille que le tableau de symptomes
+  useEffect(() => {
+    setIsPressed(new Array(data[currentSympt].symptomes.length).fill(false));
+  }, [currentSympt]);
+  //Pour mettre le background en gris quand on a choisit le symptome
+  handleClickSympt = (index, item) => {
+    setIsPressed([
+      ...isPressed.slice(0, index),
+      (isPressed[index] = true),
+      ...isPressed.slice(index + 1),
+    ]);
+    setTimeout(() => {
+      setIsPressed([
+        ...isPressed.slice(0, index),
+        (isPressed[index] = false),
+        ...isPressed.slice(index + 1),
+      ]);
+      navigation.navigate(item.screen);
+    }, 150);
+  };
+
   return (
     <View
       style={{
@@ -22,8 +44,17 @@ const Home = ({ navigation }) => {
         justifyContent: 'center',
       }}
     >
-      <View style={styles.logo}>
-        <Image source={logo} style={{ width: 200, height: 100 }} />
+      <View
+        style={styles.logo}
+        onStartShouldSetResponder={() => navigation.navigate('Welcome')}
+      >
+        <Image
+          source={logo}
+          style={{
+            width: (Dimensions.get('window').width * 0.35) / 1.5,
+            height: (Dimensions.get('window').width * 0.35) / 1.5 / 2,
+          }}
+        />
       </View>
 
       <View style={styles.mainContainer}>
@@ -31,19 +62,15 @@ const Home = ({ navigation }) => {
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
         >
           <View style={{ display: 'flex' }}>
-            <Text style={{ textAlign: 'center', fontSize: 32, color: 'gray' }}>
-              Trouvez une solution selon votre symptôme
-            </Text>
             <Text
               style={{
                 textAlign: 'center',
-                fontSize: 24,
-                marginTop: 32,
+                fontSize: Dimensions.get('window').width * 0.045,
+                marginBottom: Dimensions.get('window').height / 24,
                 color: 'gray',
-                fontStyle: 'italic',
               }}
             >
-              Touchez pour choisir
+              Touchez pour choisir votre symptôme
             </Text>
           </View>
           <View style={{ marginBottom: 64 }}>
@@ -57,7 +84,6 @@ const Home = ({ navigation }) => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              flexWrap: 'wrap',
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -66,10 +92,15 @@ const Home = ({ navigation }) => {
               return (
                 <View
                   key={index}
-                  style={styles.symptomeContainer}
-                  onStartShouldSetResponder={() =>
-                    navigation.navigate(item.screen)
-                  }
+                  style={{
+                    ...styles.symptomeContainer,
+                    backgroundColor: isPressed[index]
+                      ? '#C1C1C1'
+                      : 'transparent',
+                  }}
+                  onStartShouldSetResponder={() => {
+                    handleClickSympt(index, item);
+                  }}
                 >
                   <Image
                     source={item.img}
@@ -91,16 +122,17 @@ export default Home;
 
 const styles = StyleSheet.create({
   logo: {
-    width: 300,
-    height: 150,
-    borderBottomEndRadius: 150,
-    borderBottomStartRadius: 150,
+    width: Dimensions.get('window').width * 0.35,
+    height: (Dimensions.get('window').width * 0.35) / 2,
+    borderBottomEndRadius: 300,
+    borderBottomStartRadius: 300,
     backgroundColor: '#D9D9D9',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     top: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    zIndex: 10,
   },
   scrollView: {
     height: Dimensions.get('window').height,

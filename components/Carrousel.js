@@ -5,6 +5,9 @@ import Animated, {
   useAnimatedScrollHandler,
   interpolate,
   useAnimatedRef,
+  withTiming,
+  withRepeat,
+  withSequence,
 } from 'react-native-reanimated';
 import React, { useState } from 'react';
 import { Pagination } from './';
@@ -18,8 +21,8 @@ const Carrousel = ({ data, pagination, setCurrentSympt }) => {
   ]);
 
   const { width } = useWindowDimensions();
-  const size = width * 0.4;
-  const SPACER_SIZE = (width - size) / 2;
+  const size = width * 0.4; //width * 2/5 = 40% de la largeur de l'écran
+  const SPACER_SIZE = (width - size) / 2; //30%
   const x = useSharedValue(0);
   const offSet = useSharedValue(0);
 
@@ -52,6 +55,16 @@ const Carrousel = ({ data, pagination, setCurrentSympt }) => {
     }
   };
 
+  //ANIMATION DE SHRINK AU CLICK
+  // const rotation = useSharedValue(0);
+  // handleShrink = () => {
+  //   rotation.value = withSequence(
+  //     withTiming(-10, { duration: 50 }),
+  //     withRepeat(withTiming(10, { duration: 100 }), 2, true),
+  //     withTiming(0, { duration: 50 })
+  //   );
+  // };
+
   return (
     <View>
       <Animated.ScrollView
@@ -73,10 +86,10 @@ const Carrousel = ({ data, pagination, setCurrentSympt }) => {
             const scale = interpolate(
               x.value,
               [(index - 2) * size, (index - 1) * size, index * size],
-              [0.7, 1.18, 0.7]
+              [0.6, 1.18, 0.6]
             );
             return {
-              transform: [{ scale }],
+              transform: [{ scale }], //, { rotateZ: `${rotation.value}deg` }
             };
           });
           if (!item.img) {
@@ -84,8 +97,11 @@ const Carrousel = ({ data, pagination, setCurrentSympt }) => {
           }
           return (
             <View style={{ width: size }} key={index}>
-              <Animated.View style={[styles.imageContainer, style]}>
-                <Image source={item.img} style={styles.image} />
+              <Animated.View
+                style={[styles.imageContainer, style]}
+                // onStartShouldSetResponder={() => handleShrink()}
+              >
+                <Animated.Image source={item.img} style={styles.image} />
               </Animated.View>
             </View>
           );
@@ -103,6 +119,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
     marginTop: 64,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     width: '100%',

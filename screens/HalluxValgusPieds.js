@@ -2,25 +2,50 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   Dimensions,
-  Pressable,
+  StatusBar,
+  ScrollView,
 } from 'react-native';
-import Animated from 'react-native-reanimated';
-import { Navbar, Product, Questions, TopSymptContainer } from '../components';
-import React, { useState, useEffect } from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import halluxValgusPieds from '../assets/img/pieds/hallux-valgus.png';
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+  withRepeat,
+  withSequence,
+  FadeInDown,
+} from 'react-native-reanimated';
+import React, { useState, useEffect, useRef } from 'react';
+import { Navbar, Product, Questions, TopContainer } from '../components';
 import { productsHalgusValgus } from '../utils/data';
 
 const HalluxValgusPieds = ({ navigation }) => {
   const [step, setStep] = useState(0);
-  const [toggleStart, setToggleStart] = useState('white'); //couleur du bouton start
+  const [isPressed, setIsPressed] = useState({
+    startButton: false,
+    backButton: false,
+    stopButton: false,
+  }); //état des boutons start, retour et stop
+  const startQuestions = () => {
+    setIsPressed({ ...isPressed, startButton: true });
+    setTimeout(() => {
+      setStep((prev) => prev + 1);
+      setIsPressed({ ...isPressed, startButton: false });
+    }, 10);
+  };
   const backToPreviousStep = () => {
     if (step !== 0) {
-      setToggleStart('white');
-      setStep((prev) => prev - 1);
+      setIsPressed({ ...isPressed, backButton: true });
+      setTimeout(() => {
+        setIsPressed({ ...isPressed, backButton: false });
+        setStep((prev) => prev - 1);
+      }, 100);
     }
+  };
+  const returnToFirstStep = () => {
+    setIsPressed({ ...isPressed, stopButton: true });
+    setTimeout(() => {
+      setIsPressed({ ...isPressed, stopButton: false });
+      setStep(0);
+    }, 100);
   };
   //0 signifie qu'aucune réponse n'a été choisi ou répondu
   const [answerQ1, setAnswerQ1] = useState(0);
@@ -40,203 +65,278 @@ const HalluxValgusPieds = ({ navigation }) => {
   useEffect(() => {
     setAnswerQ4(0);
   }, [answerQ3]);
+
+  const scrollRef = useRef();
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        translateY: withRepeat(
+          withSequence(withTiming(20), withTiming(0)),
+          -1,
+          true
+        ),
+      },
+    ],
+  }));
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <TopSymptContainer
-        symptDesc='L’hallux valgus est une déformation de
-        l’articulation du gros orteil que l’on appelle aussi communément « oignon » au pied.
-        Le gros orteil se rapproche de son voisin et peut même aller jusqu’à le chevaucher.'
-      />
-      <View style={styles.containerSearchIcons}>
-        <Ionicons
-          name='search'
-          size={Dimensions.get('window').width * 0.08}
-          color='white'
-        />
-      </View>
-      <Pressable
-        style={styles.containerBackIcons}
-        onPress={() => backToPreviousStep()}
-      >
-        <Ionicons
-          name='arrow-back-outline'
-          size={Dimensions.get('window').width * 0.08}
-          color='white'
-        />
-      </Pressable>
+    <View
+      style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+      }}
+    >
       <View style={styles.bigCircle} />
       <View style={styles.littleCircle} />
+
+      <TopContainer
+        isPressed={isPressed}
+        backToPreviousStep={backToPreviousStep}
+        returnToFirstStep={returnToFirstStep}
+        step={step}
+      />
+
       {step === 0 && (
-        <Pressable
+        <View
           style={{
-            ...styles.containerStartQuestion,
-            backgroundColor: toggleStart,
-          }}
-          onPress={() => {
-            setToggleStart('gray');
-            setTimeout(() => {
-              setStep((prev) => prev + 1);
-            }, 400);
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 100,
           }}
         >
-          <Text style={styles.textStyle}>Démarrer le questionnaire</Text>
-        </Pressable>
-      )}
-      {step === 1 && (
-        <Questions
-          question1='Gros orteil mobile ?'
-          question2='Gros orteil immobile ?'
-          setAnswer={setAnswerQ1}
-          setStep={setStep}
-          backToPreviousStep={backToPreviousStep}
-        />
-      )}
-      {step === 2 && answerQ1 === 1 && (
-        <Questions
-          question1='Nécessité de calmer la douleur'
-          question2='Nécessité de séparer les orteils'
-          question3='Nécessité de corriger la déformation et limiter son évolution'
-          setAnswer={setAnswerQ2}
-          setStep={setStep}
-          backToPreviousStep={backToPreviousStep}
-        />
-      )}
-      {step === 2 && answerQ1 === 2 && (
-        <Questions
-          question1='Nécessité de répartir les pression ?'
-          question2='Nécessité de calmer la douleur ?'
-          question3='Les deux ?'
-          setAnswer={setAnswerQ2}
-          setStep={setStep}
-          backToPreviousStep={backToPreviousStep}
-        />
-      )}
-      {step === 3 && answerQ1 === 2 && answerQ2 === 1 && (
-        <Questions
-          question1='Usage occasionnel ?'
-          question2='Douleurs chroniques ou permanentes ?'
-          setAnswer={setAnswerQ3}
-          setStep={setStep}
-          backToPreviousStep={backToPreviousStep}
-        />
-      )}
-      {step === 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 1 && (
-        <Product imgPath={productsHalgusValgus.productKitHV} />
-      )}
-      {step === 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 2 && (
-        <Questions
-          question1='Associées à des douleurs plantaires ?'
-          question2='Non associées à des douleurs plantaires ?'
-          setAnswer={setAnswerQ4}
-          setStep={setStep}
-          backToPreviousStep={backToPreviousStep}
-        />
-      )}
-      {step === 5 &&
-        answerQ1 === 2 &&
-        answerQ2 === 1 &&
-        answerQ3 === 2 &&
-        answerQ4 === 1 && (
-          <Product imgPath={productsHalgusValgus.productCoussinetDouble} />
-        )}
-      {step === 5 &&
-        answerQ1 === 2 &&
-        answerQ2 === 1 &&
-        answerQ3 === 2 &&
-        answerQ4 === 2 && (
-          <Product imgPath={productsHalgusValgus.productProtector} />
-        )}
-      {step === 3 && answerQ1 === 2 && answerQ2 === 2 && (
-        <Product
-          imgPath={productsHalgusValgus.productCremeConfortArticulaire}
-        />
-      )}
-      {step === 3 && answerQ1 === 2 && answerQ2 === 3 && (
-        <Product imgPath={productsHalgusValgus.productKitHV} />
-      )}
-      {step === 3 && answerQ1 === 1 && answerQ2 === 1 && (
-        <Product
-          imgPath={productsHalgusValgus.productCremeConfortArticulaire}
-        />
-      )}
-      {step === 3 && answerQ1 === 1 && answerQ2 === 2 && (
-        <Product imgPath={productsHalgusValgus.productEcarteurs} />
-      )}
-      {step === 3 && answerQ1 === 1 && answerQ2 === 3 && (
-        <Questions
-          question1='Le jour ?'
-          question2='La nuit ?'
-          question3='Pendant la pratique sportive ?'
-          setAnswer={setAnswerQ3}
-          setStep={setStep}
-          backToPreviousStep={backToPreviousStep}
-        />
-      )}
-      {step === 4 && answerQ1 === 1 && answerQ2 === 3 && answerQ3 === 1 && (
-        <Questions
-          question1='Associées à des douleurs plantaires ?'
-          question2='Non associées à des douleurs plantaires ?'
-          setAnswer={setAnswerQ4}
-          setStep={setStep}
-          backToPreviousStep={backToPreviousStep}
-        />
-      )}
-      {step === 5 &&
-        answerQ1 === 1 &&
-        answerQ2 === 3 &&
-        answerQ3 === 1 &&
-        answerQ4 === 1 && (
-          <Product
-            imgPath={productsHalgusValgus.productOrtheseCorrectiveDouble}
-          />
-        )}
-      {step === 5 &&
-        answerQ1 === 1 &&
-        answerQ2 === 3 &&
-        answerQ3 === 1 &&
-        answerQ4 === 2 && (
-          <Product
-            imgPath={productsHalgusValgus.productOrtheseCorrectiveJour}
-          />
-        )}
-      {step === 4 && answerQ1 === 1 && answerQ2 === 3 && answerQ3 === 2 && (
-        <Product
-          imgPath={productsHalgusValgus.productCremeConfortArticulaire}
-        />
-      )}
-      {step === 4 && answerQ1 === 1 && answerQ2 === 3 && answerQ3 === 3 && (
-        <Product imgPath={productsHalgusValgus.productOrtheseCorrectiveSport} />
+          <Animated.View
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            entering={FadeInDown.duration(500)}
+          >
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: Dimensions.get('window').width * 0.9,
+                backgroundColor: '#4A88D0',
+                borderRadius: 35,
+                marginBottom: 20,
+                height: Dimensions.get('window').height * 0.15,
+              }}
+            >
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: Dimensions.get('window').width * 0.04,
+                  textAlign: 'center',
+                  marginTop: 10,
+                  fontWeight: 'bold',
+                }}
+              >
+                Bienvenue sur le questionnaire Epitact
+              </Text>
+              <Text
+                style={{
+                  color: '#6EC36C',
+                  fontSize: Dimensions.get('window').width * 0.03,
+                  margin: 10,
+                  textAlign: 'center',
+                }}
+              >
+                Dites-nous quels sont vos besoins de santé et vos symptômes,
+                nous vous conseillerons les produits qui vous conviennent le
+                mieux
+              </Text>
+            </View>
+            <Animated.View
+              style={[
+                {
+                  ...styles.containerStartQuestion,
+                  backgroundColor: isPressed.startButton
+                    ? '#5C8E5B'
+                    : '#6EC36C',
+                },
+                animatedStyle,
+              ]}
+              onStartShouldSetResponder={() => startQuestions()}
+            >
+              <Text
+                style={{
+                  ...styles.textStyle,
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}
+              >
+                Démarrer le questionnaire
+              </Text>
+            </Animated.View>
+          </Animated.View>
+        </View>
       )}
 
-      <View style={styles.container}>
-        <View style={styles.pruductContainer}>
-          <Ionicons
-            name='cube'
-            size={Dimensions.get('window').width * 0.25}
-            color='gray'
-          />
-          <Text
-            style={{
-              color: 'gray',
-              fontStyle: 'italic',
-              fontSize: Dimensions.get('window').width * 0.02,
-              width: Dimensions.get('window').width * 0.44,
-              textAlign: 'center',
-            }}
-          >
-            {step === 0
-              ? 'Démarrer le questionnaire pour trouver le produit dont vous avez besoin'
-              : 'En attente de vos réponses...'}
-          </Text>
-        </View>
-        <View style={styles.symptContainer}>
-          <Image
-            source={halluxValgusPieds}
-            alt='Hallux Valgus'
-            style={{ width: '100%', height: 'auto', aspectRatio: 1.05 }}
-          />
-        </View>
-      </View>
+      {/* QUESTIONNAIRE */}
+      {step >= 1 && (
+        <ScrollView
+          ref={scrollRef}
+          onContentSizeChange={() =>
+            scrollRef.current.scrollToEnd({ animated: true })
+          }
+        >
+          {step >= 1 && (
+            <Questions
+              question="Quel est l'état de votre gros orteil ?"
+              ans1='Mobile'
+              ans2='Immobile'
+              setAnswer={setAnswerQ1}
+              step={1}
+              currentStep={step}
+              setStep={setStep}
+              backToPreviousStep={backToPreviousStep}
+            />
+          )}
+          {step >= 2 && answerQ1 === 1 && (
+            <Questions
+              question='Ce dont vous nécessitez le plus est'
+              ans1='Calmer la douleur'
+              ans2='Séparer les orteils'
+              ans3='Corriger la déformation et limiter son évolution'
+              setAnswer={setAnswerQ2}
+              step={2}
+              currentStep={step}
+              setStep={setStep}
+              backToPreviousStep={backToPreviousStep}
+            />
+          )}
+          {step >= 2 && answerQ1 === 2 && (
+            <Questions
+              question='Quel est votre besoin principal'
+              ans1='Répartir les pression'
+              ans2='Calmer la douleur'
+              ans3='Les deux'
+              setAnswer={setAnswerQ2}
+              step={2}
+              currentStep={step}
+              setStep={setStep}
+              backToPreviousStep={backToPreviousStep}
+            />
+          )}
+          {step >= 3 && answerQ1 === 2 && answerQ2 === 1 && (
+            <Questions
+              question='Pour quel usage'
+              ans1='Occasionnel'
+              ans2='Douleurs chroniques ou permanentes'
+              setAnswer={setAnswerQ3}
+              step={3}
+              currentStep={step}
+              setStep={setStep}
+              backToPreviousStep={backToPreviousStep}
+            />
+          )}
+          {step >= 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 1 && (
+            <Product imgPath={productsHalgusValgus.productKitHV} />
+          )}
+          {step >= 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 2 && (
+            <Questions
+              question='À quoi cela est-il associé'
+              ans1='Des douleurs plantaires'
+              ans2='Pas à des douleurs plantaires'
+              step={4}
+              currentStep={step}
+              setAnswer={setAnswerQ4}
+              setStep={setStep}
+              backToPreviousStep={backToPreviousStep}
+            />
+          )}
+          {step >= 5 &&
+            answerQ1 === 2 &&
+            answerQ2 === 1 &&
+            answerQ3 === 2 &&
+            answerQ4 === 1 && (
+              <Product imgPath={productsHalgusValgus.productCoussinetDouble} />
+            )}
+          {step >= 5 &&
+            answerQ1 === 2 &&
+            answerQ2 === 1 &&
+            answerQ3 === 2 &&
+            answerQ4 === 2 && (
+              <Product imgPath={productsHalgusValgus.productProtector} />
+            )}
+          {step >= 3 && answerQ1 === 2 && answerQ2 === 2 && (
+            <Product
+              imgPath={productsHalgusValgus.productCremeConfortArticulaire}
+            />
+          )}
+          {step >= 3 && answerQ1 === 2 && answerQ2 === 3 && (
+            <Product imgPath={productsHalgusValgus.productKitHV} />
+          )}
+          {step >= 3 && answerQ1 === 1 && answerQ2 === 1 && (
+            <Product
+              imgPath={productsHalgusValgus.productCremeConfortArticulaire}
+            />
+          )}
+          {step >= 3 && answerQ1 === 1 && answerQ2 === 2 && (
+            <Product imgPath={productsHalgusValgus.productEcarteurs} />
+          )}
+          {step >= 3 && answerQ1 === 1 && answerQ2 === 3 && (
+            <Questions
+              question='Pour quel période'
+              ans1='Le jour'
+              ans2='La nuit'
+              ans3='Pendant la pratique sportive'
+              step={3}
+              currentStep={step}
+              setAnswer={setAnswerQ3}
+              setStep={setStep}
+              backToPreviousStep={backToPreviousStep}
+            />
+          )}
+          {step >= 4 && answerQ1 === 1 && answerQ2 === 3 && answerQ3 === 1 && (
+            <Questions
+              question='À quoi cela est-il associé'
+              ans1='Des douleurs plantaires'
+              ans2='Pas à des douleurs plantaires'
+              step={4}
+              currentStep={step}
+              setAnswer={setAnswerQ4}
+              setStep={setStep}
+              backToPreviousStep={backToPreviousStep}
+            />
+          )}
+          {step >= 5 &&
+            answerQ1 === 1 &&
+            answerQ2 === 3 &&
+            answerQ3 === 1 &&
+            answerQ4 === 1 && (
+              <Product
+                imgPath={productsHalgusValgus.productOrtheseCorrectiveDouble}
+              />
+            )}
+          {step >= 5 &&
+            answerQ1 === 1 &&
+            answerQ2 === 3 &&
+            answerQ3 === 1 &&
+            answerQ4 === 2 && (
+              <Product
+                imgPath={productsHalgusValgus.productOrtheseCorrectiveJour}
+              />
+            )}
+          {step >= 4 && answerQ1 === 1 && answerQ2 === 3 && answerQ3 === 2 && (
+            <Product
+              imgPath={productsHalgusValgus.productCremeConfortArticulaire}
+            />
+          )}
+          {step >= 4 && answerQ1 === 1 && answerQ2 === 3 && answerQ3 === 3 && (
+            <Product
+              imgPath={productsHalgusValgus.productOrtheseCorrectiveSport}
+            />
+          )}
+          <View style={{ height: Dimensions.get('window').height / 5 }}></View>
+        </ScrollView>
+      )}
       <Navbar navigation={navigation} />
     </View>
   );
@@ -245,77 +345,41 @@ const HalluxValgusPieds = ({ navigation }) => {
 export default HalluxValgusPieds;
 
 const styles = StyleSheet.create({
-  textStyle: {
-    textAlign: 'center',
-    fontSize: Dimensions.get('window').width * 0.025,
-    fontWeight: 'semi-bold',
-  },
-  containerStartQuestion: {
-    height: Dimensions.get('window').height * 0.1,
-    width: Dimensions.get('window').width * 0.7,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 15,
-    elevation: 3,
-    justifyContent: 'center',
+  topContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginBottom: 24,
-    marginBottom: Dimensions.get('window').height * 0.04,
   },
   containerBackIcons: {
     justifyContent: 'center',
     alignItems: 'center',
     width: Dimensions.get('window').width * 0.12,
-    height: Dimensions.get('window').height * 0.08,
-    borderTopRightRadius: 70,
-    borderBottomRightRadius: 70,
-    backgroundColor: '#51A1FF',
-    position: 'absolute',
-    left: 0,
-    top: Dimensions.get('window').height * 0.31,
+    height: Dimensions.get('window').width * 0.12,
+    borderRadius: 100,
   },
-  containerSearchIcons: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: Dimensions.get('window').width * 0.12,
-    height: Dimensions.get('window').height * 0.08,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    backgroundColor: '#51A1FF',
-    position: 'absolute',
-    right: 0,
-    top: Dimensions.get('window').height * 0.31,
-  },
-  symptContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderTopLeftRadius: 40,
-    borderBottomLeftRadius: 40,
-    borderColor: 'gray',
-    width: Dimensions.get('window').width * 0.25,
-    height: Dimensions.get('window').height * 0.15,
-    position: 'absolute',
-    right: -2,
-    backgroundColor: '#ECECEC',
-    padding: 10,
-  },
-  pruductContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  logo: {
+    width: Dimensions.get('window').width * 0.4,
+    height: (Dimensions.get('window').width * 0.4) / 2,
+    borderBottomEndRadius: 300,
+    borderBottomStartRadius: 300,
+    backgroundColor: '#D9D9D9',
     display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#ECECEC',
-    borderColor: 'gray',
-    borderOpacity: 0.4,
-    borderWidth: 2,
-    borderTopRightRadius: 40,
-    borderBottomRightRadius: 40,
-    borderStyle: 'dashed',
-    width: Dimensions.get('window').width * 0.6,
-    height: Dimensions.get('window').height * 0.3,
-    position: 'absolute',
-    left: -2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textStyle: {
+    textAlign: 'center',
+    fontSize: Dimensions.get('window').width * 0.03,
+    fontWeight: 'semi-bold',
+  },
+  containerStartQuestion: {
+    height: Dimensions.get('window').height * 0.05,
+    width: Dimensions.get('window').width * 0.5,
+    borderRadius: 100,
+    elevation: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     display: 'flex',
@@ -326,25 +390,25 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
   },
   bigCircle: {
-    width: 700,
-    height: 700,
-    borderRadius: 350,
-    backgroundColor: '#FFE9B0',
-    opacity: 0.2,
+    width: Dimensions.get('window').height * 0.6,
+    height: Dimensions.get('window').height * 0.6,
+    borderRadius: 1000,
+    backgroundColor: '#6892FF',
+    opacity: 0.4,
     position: 'absolute',
-    top: Dimensions.get('window').height * 0.2,
+    top: Dimensions.get('window').height * 0.12,
     right: Dimensions.get('window').width * 0.12,
-    left: -100,
+    left: -150,
     zIndex: -1,
   },
   littleCircle: {
-    width: 550,
-    height: 550,
-    borderRadius: 300,
-    backgroundColor: '#FFA1A1',
-    opacity: 0.1,
+    width: Dimensions.get('window').height * 0.45,
+    height: Dimensions.get('window').height * 0.45,
+    borderRadius: 1000,
+    backgroundColor: '#6EC36C',
+    opacity: 0.3,
     position: 'absolute',
-    top: Dimensions.get('window').height * 0.5,
-    right: -100,
+    top: Dimensions.get('window').height * 0.48,
+    right: -200,
   },
 });

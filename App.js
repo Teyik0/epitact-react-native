@@ -1,6 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home, HalluxValgusPieds, CrevassesTalonnieresPieds } from './screens';
+import {
+  Welcome,
+  Home,
+  HalluxValgusPieds,
+  CrevassesTalonnieresPieds,
+} from './screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -8,9 +13,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Home'
+        initialRouteName='Welcome'
         screenOptions={{ headerShown: false }}
       >
+        <Stack.Screen name='Welcome' component={Welcome} />
         <Stack.Screen name='Home' component={Home} />
         <Stack.Screen name='HalluxValgusPieds' component={HalluxValgusPieds} />
         <Stack.Screen
