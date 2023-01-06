@@ -4,7 +4,7 @@ import Pagination from './Pagination';
 import Questions from './Questions';
 import Product from './Product';
 import TopContainer from './TopContainer';
-// import StartQuestions from './StartQuestions';
+import StartQuestions from './StartQuestions';
 export {
   Navbar,
   Carrousel,
@@ -12,5 +12,5 @@ export {
   Questions,
   Product,
   TopContainer,
-  // StartQuestions,
+  StartQuestions,
 };

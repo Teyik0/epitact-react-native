@@ -1,20 +1,18 @@
 import {
   View,
-  Text,
   StyleSheet,
   Dimensions,
   StatusBar,
   ScrollView,
 } from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  withTiming,
-  withRepeat,
-  withSequence,
-  FadeInDown,
-} from 'react-native-reanimated';
 import React, { useState, useEffect, useRef } from 'react';
-import { Navbar, Product, Questions, TopContainer } from '../components';
+import {
+  Navbar,
+  Product,
+  Questions,
+  StartQuestions,
+  TopContainer,
+} from '../components';
 import { productsHalgusValgus } from '../utils/data';
 
 const HalluxValgusPieds = ({ navigation }) => {
@@ -67,17 +65,6 @@ const HalluxValgusPieds = ({ navigation }) => {
   }, [answerQ3]);
 
   const scrollRef = useRef();
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateY: withRepeat(
-          withSequence(withTiming(20), withTiming(0)),
-          -1,
-          true
-        ),
-      },
-    ],
-  }));
 
   return (
     <View
@@ -99,83 +86,7 @@ const HalluxValgusPieds = ({ navigation }) => {
       />
 
       {step === 0 && (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 100,
-          }}
-        >
-          <Animated.View
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            entering={FadeInDown.duration(500)}
-          >
-            <View
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: Dimensions.get('window').width * 0.9,
-                backgroundColor: '#4A88D0',
-                borderRadius: 35,
-                marginBottom: 20,
-                height: Dimensions.get('window').height * 0.15,
-              }}
-            >
-              <Text
-                style={{
-                  color: 'white',
-                  fontSize: Dimensions.get('window').width * 0.04,
-                  textAlign: 'center',
-                  marginTop: 10,
-                  fontWeight: 'bold',
-                }}
-              >
-                Bienvenue sur le questionnaire Epitact
-              </Text>
-              <Text
-                style={{
-                  color: '#6EC36C',
-                  fontSize: Dimensions.get('window').width * 0.03,
-                  margin: 10,
-                  textAlign: 'center',
-                }}
-              >
-                Dites-nous quels sont vos besoins de santé et vos symptômes,
-                nous vous conseillerons les produits qui vous conviennent le
-                mieux
-              </Text>
-            </View>
-            <Animated.View
-              style={[
-                {
-                  ...styles.containerStartQuestion,
-                  backgroundColor: isPressed.startButton
-                    ? '#5C8E5B'
-                    : '#6EC36C',
-                },
-                animatedStyle,
-              ]}
-              onStartShouldSetResponder={() => startQuestions()}
-            >
-              <Text
-                style={{
-                  ...styles.textStyle,
-                  color: 'white',
-                  fontWeight: 'bold',
-                }}
-              >
-                Démarrer le questionnaire
-              </Text>
-            </Animated.View>
-          </Animated.View>
-        </View>
+        <StartQuestions isPressed={isPressed} startQuestions={startQuestions} />
       )}
 
       {/* QUESTIONNAIRE */}
@@ -345,50 +256,6 @@ const HalluxValgusPieds = ({ navigation }) => {
 export default HalluxValgusPieds;
 
 const styles = StyleSheet.create({
-  topContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-  },
-  containerBackIcons: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: Dimensions.get('window').width * 0.12,
-    height: Dimensions.get('window').width * 0.12,
-    borderRadius: 100,
-  },
-  logo: {
-    width: Dimensions.get('window').width * 0.4,
-    height: (Dimensions.get('window').width * 0.4) / 2,
-    borderBottomEndRadius: 300,
-    borderBottomStartRadius: 300,
-    backgroundColor: '#D9D9D9',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textStyle: {
-    textAlign: 'center',
-    fontSize: Dimensions.get('window').width * 0.03,
-    fontWeight: 'semi-bold',
-  },
-  containerStartQuestion: {
-    height: Dimensions.get('window').height * 0.05,
-    width: Dimensions.get('window').width * 0.5,
-    borderRadius: 100,
-    elevation: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-start',
-    position: 'relative',
-    width: Dimensions.get('window').width,
-  },
   bigCircle: {
     width: Dimensions.get('window').height * 0.6,
     height: Dimensions.get('window').height * 0.6,
