@@ -2,7 +2,7 @@ import { View, Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const Navbar = ({ navigation }) => {
+const Navbar = ({ navigation, navPath }) => {
   const [isPressed, setIsPressed] = useState(false);
   return (
     <View
@@ -29,7 +29,7 @@ const Navbar = ({ navigation }) => {
           setIsPressed(true);
           setTimeout(() => {
             setIsPressed(false);
-            navigation.navigate('Home');
+            navigation.navigate(navPath);
           }, 150);
         }}
       >

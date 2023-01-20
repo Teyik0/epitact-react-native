@@ -8,6 +8,7 @@ import Animated, {
   withSequence,
 } from 'react-native-reanimated';
 import logo from '../assets/logo.png';
+import im2 from '../assets/2.png';
 
 const Welcome = ({ navigation }) => {
   const [isPressed, setIsPressed] = useState(false);
@@ -32,6 +33,28 @@ const Welcome = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Image
+        source={im2}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 70,
+          transform: [{ rotate: '90deg' }],
+          width: Dimensions.get('window').width * 0.25,
+          height: Dimensions.get('window').width * 0.45,
+        }}
+      />
+      <Image
+        source={im2}
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 70,
+          transform: [{ rotate: '-90deg' }],
+          width: Dimensions.get('window').width * 0.25,
+          height: Dimensions.get('window').width * 0.45,
+        }}
+      />
       <View style={styles.logo}>
         <Image
           source={logo}
@@ -101,6 +124,9 @@ const Welcome = ({ navigation }) => {
           Démarrer
         </Text>
       </Animated.View>
+      <Text style={{ position: 'absolute', bottom: 10 }}>
+        Epitact App - Version Démo
+      </Text>
     </View>
   );
 };

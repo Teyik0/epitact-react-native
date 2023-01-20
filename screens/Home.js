@@ -113,7 +113,7 @@ const Home = ({ navigation }) => {
         </ScrollView>
       </View>
 
-      <Navbar navigation={navigation} />
+      <Navbar navigation={navigation} navPath='Welcome' />
     </View>
   );
 };
@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    top: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    // top: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    top: 0,
     zIndex: 10,
   },
   scrollView: {

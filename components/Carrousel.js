@@ -80,6 +80,8 @@ const Carrousel = ({ data, pagination, setCurrentSympt }) => {
           offSet.value = e.nativeEvent.contentOffset.x;
           setNextSympt(offSet.value);
         }}
+        snapToEnd={false}
+        snapToStart={false}
       >
         {newData.map((item, index) => {
           const style = useAnimatedStyle(() => {

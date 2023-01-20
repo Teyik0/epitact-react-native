@@ -27,16 +27,20 @@ import tendiniteMainPoignet from '../assets/img/main-poignet/tendinite-de-querva
 
 export const data = [
   {
-    img: douleursCheville,
-    symptomes: [{ img: entorseCheville, screen: 'EntorseCheville' }],
+    img: douleursMainPoignet,
+    symptomes: [
+      { img: canalCarpienMainPoignet, screen: 'CanalCarpien' },
+      { img: rhizarthroseMainPoignet, screen: 'Rhizarthrose' },
+      { img: tendiniteMainPoignet, screen: 'TendiniteDeQuervain' },
+    ],
   },
   {
     img: douleursPieds,
     symptomes: [
       // { img: ampoulesPieds },
-      { img: corsPieds, screen: 'CorsPieds' },
+      { img: corsPieds, screen: 'Cors' },
       // { img: corsDorsauxPieds },
-      { img: crevassesTalonnieresPieds, screen: 'CrevassesTalonnieresPieds' },
+      { img: crevassesTalonnieresPieds, screen: 'CrevassesTalonnieres' },
       // { img: douleursPlantairesDurillonsPieds },
       // { img: epineCalcaneennePieds },
       { img: halluxValgusPieds, screen: 'HalluxValgusPieds' },
@@ -48,24 +52,57 @@ export const data = [
   {
     img: douleursGenou,
     symptomes: [
-      { img: gonarthroseGenou, screen: 'GonarthroseGenou' },
-      { img: syndromeRotulienGenou, screen: 'SyndromeRotulienGenou' },
+      { img: gonarthroseGenou, screen: 'Gonarthrose' },
+      { img: syndromeRotulienGenou, screen: 'SyndromeRotulien' },
     ],
+  },
+  {
+    img: douleursCheville,
+    symptomes: [{ img: entorseCheville, screen: 'EntorseCheville' }],
   },
   {
     img: douleursDos,
-    symptomes: [{ img: lombalgieDos, screen: 'LombalgieDos' }],
-  },
-  {
-    img: douleursMainPoignet,
-    symptomes: [
-      { img: canalCarpienMainPoignet, screen: 'CanalCarpienMainPoignet' },
-      { img: rhizarthroseMainPoignet, screen: 'RhizarthroseMainPoignet' },
-      { img: tendiniteMainPoignet, screen: 'TendiniteMainPoignet' },
-    ],
+    symptomes: [{ img: lombalgieDos, screen: 'Lombalgie' }],
   },
 ];
 
+// TENDINITE DE QUERVAIN
+import quervActiv from '../assets/img/main-poignet/products/querv-activ.png';
+import quervImmo from '../assets/img/main-poignet/products/querv-immo.png';
+
+export const productsTendiniteDeQuervain = {
+  quervActiv: quervActiv,
+  quervImmo: quervImmo,
+};
+
+// GONARTHROSE
+import physioStrap from '../assets/img/genou/products/physio-strap.png';
+
+export const productsGonarthrose = {
+  physioStrap: physioStrap,
+};
+
+// RHIZARTHROSE
+import rigideDeRepos from '../assets/img/main-poignet/products/rigide-de-repos.png';
+import thermoformable from '../assets/img/main-poignet/products/thermoformable.png';
+import soupleActivite from '../assets/img/main-poignet/products/souple-activite.png';
+
+export const productsRhizarthrose = {
+  rigideDeRepos: rigideDeRepos,
+  thermoformable: thermoformable,
+  soupleActivite: soupleActivite,
+};
+
+//CANAL CARPIEN
+import carpActiv from '../assets/img/main-poignet/products/carp-activ.png';
+import carpImmo from '../assets/img/main-poignet/products/carp-immo.png';
+
+export const productsCanalCarpien = {
+  carpActiv: carpActiv,
+  carpImmo: carpImmo,
+};
+
+//HALLUX VALGUS
 import productCremeConfortArticulaire from '../assets/img/pieds/products/creme-conf-arti-HV_398x604.png';
 import productEcarteurs from '../assets/img/pieds/products/ecarteurs-HV_398x604.png';
 import productOrtheseCorrectiveNuit from '../assets/img/pieds/products/orthese-corrective-nuit-hallux-valgus_398x604.png';
@@ -86,4 +123,22 @@ export const productsHalgusValgus = {
   productKitHV: productKitHV,
   productCoussinetDouble: productCoussinetDouble,
   productProtector: productProtector,
+};
+
+// Cors
+
+import barrettesSousDiaphysaires from '../assets/img/pieds/products/barrettes_sous_diaphysaires-398x604.png';
+import protegePointesOrteils from '../assets/img/pieds/products/protege-pointes_orteils_398x604.png';
+import digitubes from '../assets/img/pieds/products/digitubes_398x604.png';
+import separateurs from '../assets/img/pieds/products/separateurs_398x604.png';
+import doigtiers from '../assets/img/pieds/products/doigtiers_398x604.png';
+import protectionsOnglesBleusSport from '../assets/img/pieds/products/protections-ongles-bleus_sport_398x604.png';
+
+export const productsCors = {
+  barrettesSousDiaphysaires: barrettesSousDiaphysaires,
+  protegePointesOrteils: protegePointesOrteils,
+  digitubes: digitubes,
+  separateurs: separateurs,
+  doigtiers: doigtiers,
+  protectionsOnglesBleusSport: protectionsOnglesBleusSport,
 };

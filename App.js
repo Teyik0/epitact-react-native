@@ -5,6 +5,12 @@ import {
   Home,
   HalluxValgusPieds,
   CrevassesTalonnieresPieds,
+  Products,
+  CanalCarpien,
+  Rhizarthrose,
+  Cors,
+  Gonarthrose,
+  TendiniteDeQuervain,
 } from './screens';
 
 const Stack = createNativeStackNavigator();
@@ -18,10 +24,19 @@ const App = () => {
       >
         <Stack.Screen name='Welcome' component={Welcome} />
         <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='Products' component={Products} />
         <Stack.Screen name='HalluxValgusPieds' component={HalluxValgusPieds} />
         <Stack.Screen
           name='CrevassesTalonnieresPieds'
           component={CrevassesTalonnieresPieds}
+        />
+        <Stack.Screen name='CanalCarpien' component={CanalCarpien} />
+        <Stack.Screen name='Rhizarthrose' component={Rhizarthrose} />
+        <Stack.Screen name='Cors' component={Cors} />
+        <Stack.Screen name='Gonarthrose' component={Gonarthrose} />
+        <Stack.Screen
+          name='TendiniteDeQuervain'
+          component={TendiniteDeQuervain}
         />
       </Stack.Navigator>
     </NavigationContainer>
