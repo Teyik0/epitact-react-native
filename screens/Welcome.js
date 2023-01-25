@@ -1,6 +1,6 @@
 import { View, Text, Dimensions, StyleSheet, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Animated, {
   useAnimatedStyle,
   withTiming,

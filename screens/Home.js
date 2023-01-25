@@ -3,7 +3,6 @@ import {
   Text,
   Image,
   StyleSheet,
-  StatusBar,
   Dimensions,
   ScrollView,
 } from 'react-native';
@@ -78,6 +77,7 @@ const Home = ({ navigation }) => {
               data={data}
               pagination={true}
               setCurrentSympt={setCurrentSympt}
+              currentSympt={currentSympt}
             />
           </View>
           <View

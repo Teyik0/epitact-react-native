@@ -1,19 +1,23 @@
-import { View, StyleSheet, Image, useWindowDimensions } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  useWindowDimensions,
+  Dimensions,
+  Pressable,
+} from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedScrollHandler,
   interpolate,
   useAnimatedRef,
-  withTiming,
-  withRepeat,
-  withSequence,
 } from 'react-native-reanimated';
 import React, { useState } from 'react';
 import { Pagination } from './';
 
-const Carrousel = ({ data, pagination, setCurrentSympt }) => {
-  const scrollViewRef = useAnimatedRef();
+const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }) => {
+  const scrollViewRef = useAnimatedRef(null);
   const [newData] = useState([
     { key: 'spacer-left' },
     ...data,
@@ -55,15 +59,35 @@ const Carrousel = ({ data, pagination, setCurrentSympt }) => {
     }
   };
 
-  //ANIMATION DE SHRINK AU CLICK
-  // const rotation = useSharedValue(0);
-  // handleShrink = () => {
-  //   rotation.value = withSequence(
-  //     withTiming(-10, { duration: 50 }),
-  //     withRepeat(withTiming(10, { duration: 100 }), 2, true),
-  //     withTiming(0, { duration: 50 })
-  //   );
-  // };
+  const goBefore = () => {
+    if (currentSympt === 0) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+      offSet.value = offSet.value + 4 * size;
+      setNextSympt(setCurrentSympt(4));
+    } else {
+      scrollViewRef.current.scrollTo({
+        x: offSet.value - size,
+        animated: true,
+      });
+      offSet.value = offSet.value - size;
+      setNextSympt(setCurrentSympt((prev) => prev - 1));
+    }
+  };
+
+  const goNext = () => {
+    if (currentSympt === 4) {
+      scrollViewRef.current.scrollTo({ x: 0, animated: true });
+      offSet.value = 0;
+      setNextSympt(setCurrentSympt(0));
+    } else {
+      scrollViewRef.current.scrollTo({
+        x: offSet.value + size,
+        animated: true,
+      });
+      offSet.value = offSet.value + size;
+      setNextSympt(setCurrentSympt((prev) => prev + 1));
+    }
+  };
 
   return (
     <View>
@@ -80,8 +104,6 @@ const Carrousel = ({ data, pagination, setCurrentSympt }) => {
           offSet.value = e.nativeEvent.contentOffset.x;
           setNextSympt(offSet.value);
         }}
-        snapToEnd={false}
-        snapToStart={false}
       >
         {newData.map((item, index) => {
           const style = useAnimatedStyle(() => {
@@ -91,7 +113,7 @@ const Carrousel = ({ data, pagination, setCurrentSympt }) => {
               [0.6, 1.18, 0.6]
             );
             return {
-              transform: [{ scale }], //, { rotateZ: `${rotation.value}deg` }
+              transform: [{ scale }],
             };
           });
           if (!item.img) {
@@ -99,16 +121,71 @@ const Carrousel = ({ data, pagination, setCurrentSympt }) => {
           }
           return (
             <View style={{ width: size }} key={index}>
-              <Animated.View
-                style={[styles.imageContainer, style]}
-                // onStartShouldSetResponder={() => handleShrink()}
-              >
+              <Animated.View style={[styles.imageContainer, style]}>
                 <Animated.Image source={item.img} style={styles.image} />
               </Animated.View>
             </View>
           );
         })}
       </Animated.ScrollView>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          position: 'absolute',
+          width: '100%',
+          top: '20%',
+        }}
+      >
+        <Pressable
+          style={{
+            backgroundColor: 'transparent',
+            display: 'flex',
+            transform: [{ rotate: '180deg' }],
+            height: Dimensions.get('window').height * 0.15,
+            width: Dimensions.get('window').width * 0.25,
+          }}
+          onPress={() => goBefore()}
+        />
+        <Pressable
+          style={{
+            backgroundColor: 'transparent',
+            display: 'flex',
+            transform: [{ rotate: '180deg' }],
+            height: Dimensions.get('window').height * 0.15,
+            width: Dimensions.get('window').width * 0.25,
+          }}
+          onPress={() => goNext()}
+        />
+      </View>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          transform: [{ translateY: -Dimensions.get('window').height * 0.02 }],
+        }}
+      >
+        <Ionicons
+          name='caret-forward-outline'
+          size={Dimensions.get('window').width * 0.06}
+          style={{
+            position: 'relative',
+            display: 'flex',
+            transform: [{ rotate: '180deg' }],
+          }}
+          color='#6EC36C'
+          onPress={() => goBefore()}
+        />
+        <Ionicons
+          name='caret-forward-outline'
+          size={Dimensions.get('window').width * 0.06}
+          style={{ position: 'relative', display: 'flex' }}
+          color='#6EC36C'
+          onPress={() => goNext()}
+        />
+      </View>
       {pagination && <Pagination data={data} x={x} size={size} />}
     </View>
   );

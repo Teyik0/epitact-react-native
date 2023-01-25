@@ -1,11 +1,4 @@
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  Dimensions,
-  StatusBar,
-} from 'react-native';
+import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.png';
 import { Navbar } from '../components';
@@ -42,29 +35,18 @@ const Products = ({ route, navigation }) => {
             }}
           />
         </View>
-        <Text
-          style={{
-            fontSize: Dimensions.get('window').width * 0.03,
-            textTransform: 'uppercase',
-            textAlign: 'center',
-            marginBottom: 40,
-            fontWeight: 'bold',
-            opacity: 0.7,
-          }}
-        >
-          {productName}
-        </Text>
         <View
           style={{
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-evenly',
-            width: '100%',
+            width: '90%',
             marginBottom: 40,
             paddingTop: 30,
             paddingBottom: 30,
-            backgroundColor: '#D9D9D9',
+            borderRadius: 50,
+            backgroundColor: '#6892FF',
             elevation: 4,
           }}
         >
@@ -72,10 +54,21 @@ const Products = ({ route, navigation }) => {
             <Text
               style={{
                 fontSize: Dimensions.get('window').width * 0.03,
+                textTransform: 'uppercase',
+                marginBottom: 40,
+                fontWeight: 'bold',
+              }}
+            >
+              {productName}
+            </Text>
+            <Text
+              style={{
+                fontSize: Dimensions.get('window').width * 0.03,
                 textAlign: 'left',
                 marginTop: 20,
                 fontStyle: 'italic',
-                opacity: 0.7,
+                fontWeight: 'semibold',
+                opacity: 0.75,
               }}
             >
               {littleDesc}
@@ -94,11 +87,14 @@ const Products = ({ route, navigation }) => {
         </View>
         <View
           style={{
-            backgroundColor: '#ffffff',
-            width: '100%',
+            backgroundColor: '#6892FF',
+            width: '90%',
             paddingTop: 30,
             paddingBottom: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
             elevation: 4,
+            borderRadius: 50,
           }}
         >
           {desc &&
@@ -110,7 +106,6 @@ const Products = ({ route, navigation }) => {
                   paddingRight: 20,
                   marginBottom: 20,
                   fontSize: Dimensions.get('window').width * 0.022,
-                  opacity: 0.7,
                 }}
               >
                 {item}
@@ -149,7 +144,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.6,
     borderRadius: 1000,
     backgroundColor: '#6892FF',
-    opacity: 0.3,
+    opacity: 0.5,
     position: 'absolute',
     top: Dimensions.get('window').height * 0.14,
     right: Dimensions.get('window').width * 0.14,
@@ -161,7 +156,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.47,
     borderRadius: 1000,
     backgroundColor: '#6EC36C',
-    opacity: 0.2,
+    opacity: 0.4,
     position: 'absolute',
     top: Dimensions.get('window').height * 0.48,
     right: -200,
@@ -176,7 +171,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    // top: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     top: 0,
     zIndex: 10,
   },
