@@ -104,24 +104,13 @@ const TendiniteDeQuervain = ({ navigation }) => {
           {step >= 2 && answerQ1 === 1 && (
             <Next
               navigation={navigation}
-              imgPath={productsTendiniteDeQuervain.quervActiv}
-              littleDesc='Maintient et soulage le pouce en activité en cas de tendinite de De Quervain'
-              productName="QUERV'ACTIV"
-              desc={[
-                "EPITACT® a créé l'orthèse souple d’activité QUERV’ACTIV™ pour accompagner et préserver le poignet durant vos activités. Ce dispositif médical est spécialement conçu pour soulager les personnes atteintes d’une tendinite de De Quervain.",
-                'Développée sur le concept de la proprioception, cette orthèse vous aide à limiter et corriger par vous-même les gestes inadaptés. À porter le jour ou lors d’activités, sa présence discrète limite les micromouvements traumatisants du pouce et du poignet. En maintenant le pouce dans une position adaptée, ce dispositif apaise vos douleurs sans gêner la mobilité des articulations !',
-              ]}
+              product={productsTendiniteDeQuervain.quervActiv}
             />
           )}
           {step >= 2 && answerQ1 === 2 && (
             <Next
               navigation={navigation}
-              imgPath={productsTendiniteDeQuervain.quervImmo}
-              littleDesc='Immobilise le pouce pour soulager les douleurs au repos liées à la tendinite de De Quervain'
-              productName="QUERV'IMMO™ ORTHÈSE POIGNET / POUCE RIGIDE TENDINITE DE QUERVAIN"
-              desc={[
-                'QUERV’IMMO™ est une orthèse de poignet/pouce pour la tendinite de De Quervain, pour les entorses ou les troubles musculosquelettiques du pouce et du poignet. Le port de cette orthèse est préconisé en période de repos ou la nuit pour immobiliser le pouce. Ainsi, elle prévient les micromouvements traumatiques du pouce et du poignet pour soulager et limiter l’évolution des douleurs. ',
-              ]}
+              product={productsTendiniteDeQuervain.quervImmo}
             />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>

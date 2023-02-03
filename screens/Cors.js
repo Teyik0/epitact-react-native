@@ -65,7 +65,6 @@ const Cors = ({ navigation }) => {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        // marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
       <View style={styles.bigCircle} />
@@ -104,14 +103,7 @@ const Cors = ({ navigation }) => {
           {step >= 2 && answerQ1 === 1 && (
             <Next
               navigation={navigation}
-              imgPath={productsCors.barrettesSousDiaphysaires}
-              littleDesc='Pour les orteils en griffe ou en marteau'
-              productName='Barrette sous-diaphysaire'
-              desc={[
-                'Se chausser lorsque l’on a un orteil en marteau ou en griffe peut être très douloureux. En protégeant l’orteil sans le redresser, le risque est qu’il finisse par se fixer dans cette position et qu’il soit plus difficile ensuite de le redresser. Et si la solution était de positionner une barrette sous diaphysaire sous les orteils afin de les allonger ? On conserve ainsi une certaine souplesse des orteils en évitant les conflits avec la chaussure.',
-                "Les barrettes sous-diaphysaires en silicone EPITACT® pour les orteils en marteau ou en griffe s’adaptent parfaitement à l'espace situé sous les doigts de pieds. Le gel EPITHELIUM 26® qui les constitue vise à modifier confortablement les appuis pour limiter la formation des cors pulpaires et dorsaux.",
-                "De plus, le dispositif a une excellente tenue grâce à son élastique souple à passer autour du 3e orteil. Le confort est encore amélioré par le choix d'un tissu doux favorisant l'évacuation de la sueur.",
-              ]}
+              product={productsCors.barrettesSousDiaphysaires}
             />
           )}
           {step >= 2 && answerQ1 === 2 && (
@@ -128,26 +120,12 @@ const Cors = ({ navigation }) => {
             />
           )}
           {step >= 2 && answerQ1 === 2 && answerQ2 === 2 && (
-            <Next
-              navigation={navigation}
-              imgPath={productsCors.doigtiers}
-              littleDesc='Pour protéger les orteils et soulager la douleur des cors pulpaires et ongles incarnés ou bleus'
-              productName='Doigtiers'
-              desc={[
-                'Les doigtiers en silicone EPITACT® sont recommandés pour protéger l’extrémité des orteils des cors pulpaires, des ongles incarnés et des ongles bleus. Portés quotidiennement, ces protège-orteils peuvent s’utiliser pour soulager les douleurs ou bien en prévention. En effet, une fois le cor supprimé par un podologue, ils éviteront l’apparition ou la réapparition du cor.',
-              ]}
-            />
+            <Next navigation={navigation} product={productsCors.doigtiers} />
           )}
           {step >= 2 && answerQ1 === 2 && answerQ2 === 3 && (
             <Next
               navigation={navigation}
-              imgPath={productsCors.protectionsOnglesBleusSport}
-              littleDesc='Doigtiers de protection ongles bleus durant la pratique du sport'
-              productName='DOIGTIERS PROTECTION ONGLES BLEUS SPORT'
-              desc={[
-                'Ces protections ont été spécialement conçues pour les sports où les orteils sont soumis à des impacts répétés contre la chaussure en supprimant les pressions et les micro-chocs sur l’ongle.',
-                'Que l’ongle bleu soit susceptible d’apparaître à cause de chocs répétitifs contre la chaussure (rando, trail, course à pied) ou suite à un traumatisme provoqué par un autre joueur (football, rugby), les doigtiers de protection ongles bleus EPITACT® SPORT joueront efficacement leur rôle. Ils sont aussi indiqués en prévention et lorsque l’ongle bleu est déjà formé.',
-              ]}
+              product={productsCors.protectionsOnglesBleusSport}
             />
           )}
           {step >= 3 && answerQ1 === 2 && answerQ2 === 1 && (
@@ -166,42 +144,14 @@ const Cors = ({ navigation }) => {
           {step >= 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 1 && (
             <Next
               navigation={navigation}
-              imgPath={productsCors.protegePointesOrteils}
-              littleDesc='Vise à protéger et soulager le dessus des orteils en marteau, en griffe ou cors dorsaux'
-              productName='PROTÈGE-POINTES ORTEILS EN MARTEAU'
-              desc={[
-                'Vous avez un ou plusieurs cors sur le dessus des orteils, ou des orteils en marteau ou en griffe ? Ces protège-pointes s’enfilent comme des chaussettes pour protéger le dessus de tous vos orteils.',
-                'Un orteil en marteau ou en griffe est assez facile à protéger mais la tâche se complique lorsque plusieurs doigts de pieds sont concernés. Il faut alors opter pour une solution globale car la mise en place de protections individuelles sur chaque orteil peut augmenter considérablement l’encombrement dans la chaussure et créer alors davantage de pressions.',
-                'Les protège-pointes orteils en marteau apportent une solution intégrale.',
-                "La lunule d'EPITHELIUM 26® positionnée au-dessus des orteils répartit les pressions et limite la formation des cors sur le dessus des doigts de pieds.",
-                "Ce dispositif protège l'ensemble des orteils avec un encombrement réduit. Les protège-pointes EPITACT® réchauffent aussi les extrémités souvent mal irriguées.",
-              ]}
+              product={productsCors.protegePointesOrteils}
             />
           )}
           {step >= 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 2 && (
-            <Next
-              navigation={navigation}
-              imgPath={productsCors.digitubes}
-              littleDesc='Protègent les orteils et soulagent la douleur liée aux cors et œils-de-perdrix'
-              productName='DIGITUBES®'
-              desc={[
-                'Les DIGITUBES® EPITACT®  soulagent et éliminent naturellement les cors dorsaux (au-dessus des orteils) et les œils-de-perdrix (entre les orteils). Ils peuvent aussi s’utiliser en prévention pour éviter la formation d’un cor ou bien d’une ampoule sur les orteils.',
-              ]}
-            />
+            <Next navigation={navigation} product={productsCors.digitubes} />
           )}
           {step >= 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 3 && (
-            <Next
-              navigation={navigation}
-              imgPath={productsCors.separateurs}
-              littleDesc='Protègent les orteils et soulagent la douleur des cors interdigitaux et œils-de-perdrix'
-              productName='SÉPARATEURS'
-              desc={[
-                "Optez pour les séparateurs d’orteils en silicone, conçus pour soulager les cors en séparant les orteils de quelques millimètres. Ils ont pour but d'éviter le chevauchement de deux orteils en cas de déformation.",
-                'Vous avez deux orteils qui ont tendance à se chevaucher ou à se toucher ? Ceci est fréquent et provoque souvent la formation de corne dans l’espace interdigital. C’est ce que l’on appelle communément un œil-de-perdrix. Pour éviter la formation de ce cor, l’idée est de séparer les deux orteils grâce au séparateur pour doigts de pieds EPITACT® constitué d’un matériau répartiteur de pressions très confortable et à la forme parfaitement ergonomique.',
-                "Leur forme et le gel EPITHELIUM™ permettent aux séparateurs d’orteils en silicone EPITACT® de s'adapter parfaitement à la forme du pied et favorisent leur maintien tout au long de la journée.",
-                "Astuce : En associant deux petits séparateurs, vous pouvez augmenter l'écart de séparation entre deux orteils.",
-              ]}
-            />
+            <Next navigation={navigation} product={productsCors.separateurs} />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>
         </ScrollView>

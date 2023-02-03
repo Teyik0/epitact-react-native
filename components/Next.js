@@ -1,7 +1,6 @@
 import { View, Text, Dimensions } from 'react-native';
 import Animated, {
   useAnimatedStyle,
-  FadeInDown,
   withRepeat,
   withSequence,
   withTiming,
@@ -9,16 +8,13 @@ import Animated, {
 import React, { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const Next = ({ navigation, imgPath, desc, littleDesc, productName }) => {
+const Next = ({ navigation, product }) => {
   const [pressed, setPressed] = useState(false);
   const goNext = () => {
     setPressed(true);
     setTimeout(() => {
       navigation.navigate('Products', {
-        imgPath: imgPath,
-        desc: desc,
-        productName: productName,
-        littleDesc: littleDesc,
+        product: product,
       });
       setPressed(false);
     }, 300);

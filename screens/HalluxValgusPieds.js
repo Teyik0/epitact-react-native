@@ -72,7 +72,6 @@ const HalluxValgusPieds = ({ navigation }) => {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        // marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
       <View style={styles.bigCircle} />
@@ -150,12 +149,7 @@ const HalluxValgusPieds = ({ navigation }) => {
           {step >= 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 1 && (
             <Next
               navigation={navigation}
-              imgPath={productsHalgusValgus.productKitHV}
-              productName='Kit Hallux Valgus'
-              desc={[
-                'Le kit hallux valgus est dédié aux personnes qui ressentent de l’inconfort au niveau d’un hallux valgus (« oignon »), inconfort lié à une douleur articulaire et/ou des frottements excessifs. Constitué d’un sérum apaisant à base d’huiles essentielles et de protections anti-frottements, le kit est efficace toute la journée.',
-              ]}
-              littleDesc="Inconfort au niveau de l'oignon lié à une douleur articulaire et/ou des frottements excessifs."
+              product={productsHalgusValgus.productProtector}
             />
           )}
           {step >= 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 2 && (
@@ -177,12 +171,7 @@ const HalluxValgusPieds = ({ navigation }) => {
             answerQ4 === 1 && (
               <Next
                 navigation={navigation}
-                imgPath={productsHalgusValgus.productCoussinetDouble}
-                littleDesc="Développés pour soulager les douleurs sur l' « oignon » (hallux valgus) et l'avant-pied (durillons)."
-                desc={[
-                  'Vous avez aussi des douleurs plantaires ? Les coussinets double protection EPITACT® ont été développés pour soulager les deux zones, l’hallux valgus (« oignon ») et sous l’avant-pied !',
-                ]}
-                productName='Coussinet double protection'
+                product={productsHalgusValgus.productCoussinetDouble}
               />
             )}
           {step >= 5 &&
@@ -192,60 +181,31 @@ const HalluxValgusPieds = ({ navigation }) => {
             answerQ4 === 2 && (
               <Next
                 navigation={navigation}
-                imgPath={productsHalgusValgus.productProtector}
-                littleDesc="Destinée à soulager les douleurs sur l' « oignon » de l'hallux valgus au quotidien."
-                desc={[
-                  "Pour un usage quotidien, adoptez la protection hallux valgus EPITACT® ! Fine et discrète, elle a pour objectif de limiter les frottements et d'apaiser les douleurs conflictuelles avec la chaussure.",
-                  "Vous souffrez d’un « oignon » au pied ? Même si la déformation n’est pas très marquée, le chaussage est très vite douloureux. Le conflit avec la chaussure crée des douleurs sur l’excroissance osseuse et de la corne liée à des pressions et frottements excessifs. Il faut donc interposer entre la chaussure et l’ « oignon » une interface qui permette de répartir les charges et de soulager la douleur. C’est le rôle remplit par le gel silicone EPITHELIUM 26® intégré à la protection hallux valgus EPITACT®. Une pastille d'1 mm de ce gel positionnée sur l' « oignon » permet d'apaiser les douleurs.",
-                ]}
-                productName='PROTECTION HALLUX VALGUS'
+                product={productsHalgusValgus.productProtector}
               />
             )}
           {step >= 3 && answerQ1 === 2 && answerQ2 === 2 && (
             <Next
               navigation={navigation}
-              imgPath={productsHalgusValgus.productCremeConfortArticulaire}
-              littleDesc='Développée pour dynamiser les pieds gonflés et apaiser les sensations de jambes lourdes.'
-              productName='Crème de confort articulaire'
-              desc={[
-                'Douleurs articulaires intenses, hallux valgus. Pour soulager les douleurs articulaires du pied, cette crème apaisante est 100% d’origine naturelle et sans paraben L’huile essentielle de Gaulthérie est réputée pour ses propriétés calmantes.',
-                'L’huile essentielle de Genévrier est reconnue pour son effet relaxant. Enfin, l’huile essentielle de Pin a été choisie pour son action positive sur la douleur. Ces huiles essentielles (Gaulthérie, Genévrier et Pin) agissent en synergie pour une plus grande efficacité. Appliquée sur les pieds en massage régulièrement, elle apporte soulagement et détente aux articulations fatiguées, sollicitées et douloureuses.',
-              ]}
+              product={productsHalgusValgus.productCremeConfortArticulaire}
             />
           )}
           {step >= 3 && answerQ1 === 2 && answerQ2 === 3 && (
             <Next
               navigation={navigation}
-              imgPath={productsHalgusValgus.productKitHV}
-              desc={[
-                'Le kit hallux valgus est dédié aux personnes qui ressentent de l’inconfort au niveau d’un hallux valgus (« oignon »), inconfort lié à une douleur articulaire et/ou des frottements excessifs. Constitué d’un sérum apaisant à base d’huiles essentielles et de protections anti-frottements, le kit est efficace toute la journée.',
-              ]}
-              littleDesc="Inconfort au niveau de l'oignon lié à une douleur articulaire et/ou des frottements excessifs."
-              productName='Kit Hallux Valgus'
+              product={productsHalgusValgus.productKitHV}
             />
           )}
           {step >= 3 && answerQ1 === 1 && answerQ2 === 1 && (
             <Next
               navigation={navigation}
-              imgPath={productsHalgusValgus.productCremeConfortArticulaire}
-              littleDesc='Développée pour dynamiser les pieds gonflés et apaiser les sensations de jambes lourdes.'
-              productName='Crème de confort articulaire'
-              desc={[
-                'Douleurs articulaires intenses, hallux valgus. Pour soulager les douleurs articulaires du pied, cette crème apaisante est 100% d’origine naturelle et sans paraben L’huile essentielle de Gaulthérie est réputée pour ses propriétés calmantes.',
-                'L’huile essentielle de Genévrier est reconnue pour son effet relaxant. Enfin, l’huile essentielle de Pin a été choisie pour son action positive sur la douleur. Ces huiles essentielles (Gaulthérie, Genévrier et Pin) agissent en synergie pour une plus grande efficacité. Appliquée sur les pieds en massage régulièrement, elle apporte soulagement et détente aux articulations fatiguées, sollicitées et douloureuses.',
-              ]}
+              product={productsHalgusValgus.productCremeConfortArticulaire}
             />
           )}
           {step >= 3 && answerQ1 === 1 && answerQ2 === 2 && (
             <Next
               navigation={navigation}
-              imgPath={productsHalgusValgus.productEcarteurs}
-              littleDesc='Pour séparer les orteils en cas d’hallux valgus (« oignon »).'
-              productName='Ecarteurs'
-              desc={[
-                'Votre gros orteil et le deuxième se chevauchent ? Les écarteurs EPITACT® ont pour but de limiter la déviation du gros orteil en évitant le chevauchement et ainsi l’apparition de cors interdigitaux.',
-                'Si la déformation liée à l’hallux valgus est importante, il arrive que le gros orteil ait une fâcheuse tendance à venir se coller contre son voisin. Outre le caractère difficile du chaussage, un autre problème peut se greffer sur cette pathologie : la formation de callosités, de cors ou d’œil-de-perdrix entre les deux doigts de pied. Il est alors essentiel de les séparer grâce à un ou plusieurs écarteurs.',
-              ]}
+              product={productsHalgusValgus.productEcarteurs}
             />
           )}
           {step >= 3 && answerQ1 === 1 && answerQ2 === 3 && (
@@ -280,13 +240,7 @@ const HalluxValgusPieds = ({ navigation }) => {
             answerQ4 === 1 && (
               <Next
                 navigation={navigation}
-                imgPath={productsHalgusValgus.productOrtheseCorrectiveDouble}
-                desc={[
-                  'L’orthèse corrective double a été développée pour limiter l’évolution de l’hallux valgus (grâce à une correction de l’axe du gros orteil) tout en protégeant l’avant-pied.',
-                  'Un « oignon » est souvent associé à des douleurs en zone plantaire. Le gros orteil ne jouant plus son rôle de support, la charge qu’il supportait se répartit naturellement sur le 2e et le 3e métatarsien. De ce fait, des zones de corne, de callosités parfois douloureuses apparaissent sous le pied.',
-                ]}
-                littleDesc='Conçue pour corriger la déviation et soulager les douleurs plantaires.'
-                productName='ORTHÈSE CORRECTIVE DOUBLE HALLUX VALGUS'
+                product={productsHalgusValgus.productOrtheseCorrectiveDouble}
               />
             )}
           {step >= 5 &&
@@ -296,37 +250,19 @@ const HalluxValgusPieds = ({ navigation }) => {
             answerQ4 === 2 && (
               <Next
                 navigation={navigation}
-                imgPath={productsHalgusValgus.productOrtheseCorrectiveJour}
-                desc={[
-                  'UNE ORTHÈSE SOUPLE QUI VISE À CORRIGER LA DÉFORMATION LORS DE LA MARCHE.',
-                  'Vous souhaitez soulager vos douleurs articulaires et conflictuelles avec vos chaussures tout en redressant votre orteil ? L’orthèse corrective hallux valgus souple de jour EPITACT® agit sur les facteurs aggravant la déformation, contrairement aux orthèses rigides.',
-                ]}
-                littleDesc='Correcteur de l’hallux valgus qui réaxe le gros orteil et soulage les douleurs à la marche.'
-                productName='ORTHÈSE CORRECTIVE HALLUX VALGUS « OIGNON » JOUR'
+                product={productsHalgusValgus.productOrtheseCorrectiveJour}
               />
             )}
           {step >= 4 && answerQ1 === 1 && answerQ2 === 3 && answerQ3 === 2 && (
             <Next
               navigation={navigation}
-              imgPath={productsHalgusValgus.productCremeConfortArticulaire}
-              desc={[
-                'Douleurs articulaires intenses, hallux valgus. Pour soulager les douleurs articulaires du pied, cette crème apaisante est 100% d’origine naturelle et sans paraben L’huile essentielle de Gaulthérie est réputée pour ses propriétés calmantes.',
-                'L’huile essentielle de Genévrier est reconnue pour son effet relaxant. Enfin, l’huile essentielle de Pin a été choisie pour son action positive sur la douleur. Ces huiles essentielles (Gaulthérie, Genévrier et Pin) agissent en synergie pour une plus grande efficacité. Appliquée sur les pieds en massage régulièrement, elle apporte soulagement et détente aux articulations fatiguées, sollicitées et douloureuses.',
-              ]}
-              littleDesc='Développée pour dynamiser les pieds gonflés et apaiser les sensations de jambes lourdes.'
-              productName='Crème de confort articulaire'
+              product={productsHalgusValgus.productOrtheseCorrectiveNuit}
             />
           )}
           {step >= 4 && answerQ1 === 1 && answerQ2 === 3 && answerQ3 === 3 && (
             <Next
               navigation={navigation}
-              imgPath={productsHalgusValgus.productOrtheseCorrectiveSport}
-              desc={[
-                "Durant l'activité physique, l’orthèse de sport pour l’hallux valgus EPITACT® a pour but de réaxer le gros orteil, de limiter la pronation et d’optimiser la propulsion.",
-                'Attelle, redresseur, correcteur, orthèse corrective pour l’hallux valgus… Voici la panoplie des solutions disponibles qui visent à corriger et soulager un hallux valgus douloureux. Pourtant, rares sont celles qui peuvent se porter durant la pratique sportive. Développée pour s’insérer dans vos chaussures de sport, l’orthèse corrective hallux valgus EPITACT® limite la douleur et corrige la déformation de votre hallux valgus débutant tout en améliorant vos performances.',
-              ]}
-              productName='Orthèse Corrective Hallux Valgus Sport'
-              littleDesc="Développée pour réaxer l'orteil durant la pratique sportive"
+              product={productsHalgusValgus.productOrtheseCorrectiveSport}
             />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>

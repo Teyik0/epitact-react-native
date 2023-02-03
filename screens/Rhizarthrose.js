@@ -105,13 +105,7 @@ const Rhizarthrose = ({ navigation }) => {
           {step >= 2 && answerQ1 === 1 && (
             <Next
               navigation={navigation}
-              imgPath={productsRhizarthrose.soupleActivite}
-              productName='Souple d’activité'
-              littleDesc='Maintient et soulage le pouce en cas de rhizarthrose (arthrose du pouce), sans entraver la mobilité'
-              desc={[
-                "EPITACT® a créé l'orthèse souple d’activité, une orthèse de pouce pour la rhizarthrose qui a pour but de soulager les douleurs articulaires liées à l’arthrose à la base du pouce tout en conservant l’entière fonctionnalité de la main !",
-                'Le port pendant la journée de l’orthèse proprioceptive est recommandé pour soulager les douleurs articulaires liées à de la rhizarthrose. Cette orthèse de pouce souple limite les micromouvements traumatisants. Il maintient le pouce en position de repos et préserve la chaleur locale au niveau de l’articulation. Souple, fine et discrète, elle vise à conserver l’entière fonctionnalité de votre main !',
-              ]}
+              product={productsRhizarthrose.soupleActivite}
             />
           )}
           {step >= 2 && answerQ1 === 2 && (
@@ -130,37 +124,19 @@ const Rhizarthrose = ({ navigation }) => {
           {step >= 3 && answerQ1 === 2 && answerQ2 === 1 && (
             <Next
               navigation={navigation}
-              imgPath={productsRhizarthrose.soupleActivite}
-              productName='Souple d’activité'
-              littleDesc='Maintient et soulage le pouce en cas de rhizarthrose (arthrose du pouce), sans entraver la mobilité'
-              desc={[
-                "EPITACT® a créé l'orthèse souple d’activité, une orthèse de pouce pour la rhizarthrose qui a pour but de soulager les douleurs articulaires liées à l’arthrose à la base du pouce tout en conservant l’entière fonctionnalité de la main !",
-                'Le port pendant la journée de l’orthèse proprioceptive est recommandé pour soulager les douleurs articulaires liées à de la rhizarthrose. Cette orthèse de pouce souple limite les micromouvements traumatisants. Il maintient le pouce en position de repos et préserve la chaleur locale au niveau de l’articulation. Souple, fine et discrète, elle vise à conserver l’entière fonctionnalité de votre main !',
-              ]}
+              product={productsRhizarthrose.soupleActivite}
             />
           )}
           {step >= 3 && answerQ1 === 2 && answerQ2 === 2 && (
             <Next
               navigation={navigation}
-              imgPath={productsRhizarthrose.thermoformable}
-              productName='Thermoformable'
-              littleDesc="Immobilise l'articulation et soulage les douleurs, à mouler (thermoformable)."
-              desc={[
-                'En s’adaptant parfaitement à votre morphologie, l’orthèse thermoformable EPITACT® à mouler soi-même facilement, vise à calmer la douleur et à prévenir les déformations (pousse en Z).',
-                "Conseillée pour soulager les douleurs articulaires à la base du pouce déformé, elle est conçue pour limiter l'évolution de la rhizarthrose. Cette orthèse est thermoformable : elle devient souple lorsqu’elle est immergée dans l'eau chaude. Dès qu'elle est enfilée, elle prend la forme de votre main en positionnant naturellement le pouce au repos. Elle durcit et devient à nouveau rigide en quelques minutes. Une fois thermoformée, l’orthèse de pouce est ainsi parfaitement adaptée à votre morphologie.",
-              ]}
+              product={productsRhizarthrose.thermoformable}
             />
           )}
           {step >= 3 && answerQ1 === 2 && answerQ2 === 3 && (
             <Next
               navigation={navigation}
-              imgPath={productsRhizarthrose.rigideDeRepos}
-              productName='Rigide de repos'
-              littleDesc="Maintient le pouce pour prévenir et soulager les douleurs d'arthrose"
-              desc={[
-                'La nuit ou au repos, optez pour l’orthèse rigide de repos qui vise à maintenir le pouce en position neutre, soulager et prévenir l’évolution de la rhizarthrose.',
-                "L'orthèse pouce de repos rigide doit être portée la nuit ou dans toutes les situations où la main n'est pas utilisée. Vous pourrez aisément vous endormir ou profiter d’un moment de détente pendant que votre pouce est immobilisé en position de repos, en ouvrant la commissure entre l’index et le pouce. Elle a été développée pour vous soulager les douleurs articulaires et limiter l'évolution de la rhizarthrose.",
-              ]}
+              product={productsRhizarthrose.rigideDeRepos}
             />
           )}
           {step >= 2 && answerQ1 === 3 && (
@@ -178,25 +154,13 @@ const Rhizarthrose = ({ navigation }) => {
           {step >= 3 && answerQ1 === 3 && answerQ2 === 1 && (
             <Next
               navigation={navigation}
-              imgPath={productsRhizarthrose.thermoformable}
-              productName='Thermoformable'
-              littleDesc="Immobilise l'articulation et soulage les douleurs, à mouler (thermoformable)."
-              desc={[
-                'En s’adaptant parfaitement à votre morphologie, l’orthèse thermoformable EPITACT® à mouler soi-même facilement, vise à calmer la douleur et à prévenir les déformations (pousse en Z).',
-                "Conseillée pour soulager les douleurs articulaires à la base du pouce déformé, elle est conçue pour limiter l'évolution de la rhizarthrose. Cette orthèse est thermoformable : elle devient souple lorsqu’elle est immergée dans l'eau chaude. Dès qu'elle est enfilée, elle prend la forme de votre main en positionnant naturellement le pouce au repos. Elle durcit et devient à nouveau rigide en quelques minutes. Une fois thermoformée, l’orthèse de pouce est ainsi parfaitement adaptée à votre morphologie.",
-              ]}
+              product={productsRhizarthrose.thermoformable}
             />
           )}
           {step >= 3 && answerQ1 === 3 && answerQ2 === 2 && (
             <Next
               navigation={navigation}
-              imgPath={productsRhizarthrose.rigideDeRepos}
-              productName='Rigide de repos'
-              littleDesc="Maintient le pouce pour prévenir et soulager les douleurs d'arthrose"
-              desc={[
-                'La nuit ou au repos, optez pour l’orthèse rigide de repos qui vise à maintenir le pouce en position neutre, soulager et prévenir l’évolution de la rhizarthrose.',
-                "L'orthèse pouce de repos rigide doit être portée la nuit ou dans toutes les situations où la main n'est pas utilisée. Vous pourrez aisément vous endormir ou profiter d’un moment de détente pendant que votre pouce est immobilisé en position de repos, en ouvrant la commissure entre l’index et le pouce. Elle a été développée pour vous soulager les douleurs articulaires et limiter l'évolution de la rhizarthrose.",
-              ]}
+              product={productsRhizarthrose.rigideDeRepos}
             />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>

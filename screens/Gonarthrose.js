@@ -65,7 +65,6 @@ const Gonarthrose = ({ navigation }) => {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        // marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
       <View style={styles.bigCircle} />
@@ -105,13 +104,7 @@ const Gonarthrose = ({ navigation }) => {
           {step >= 2 && (
             <Next
               navigation={navigation}
-              imgPath={productsGonarthrose.physioStrap}
-              littleDesc='Prévient et/ou soulage l’arthrose du genou ou le syndrome rotulien sans entraver le mouvement'
-              productName='GENOUILLÈRE ARTHROSE PHYSIOSTRAP® MÉDICAL'
-              desc={[
-                "Le port de la grenouillère arthrose PHYSIOstrap® à l’EPITHELIUM FLEX® contre l'arthrose aide à soulager et à sécuriser votre genou fragile ou douloureux (arthrose, pathologies rotuliennes, etc.)",
-                "L'arthrose du genou touche 2,5 millions de personnes en France avec 160 000 nouveaux cas chaque année ! Cette pathologie chronique nécessite une prise en charge au quotidien et une solution adaptée au mode de vie du patient. Ainsi, les genouillères tricotées, volumineuses et compressives, conçues pour des pathologies aiguës et ponctuelles, ne peuvent constituer une réponse satisfaisante à une maladie au long cours. Aujourd’hui, nous proposons une solution pertinente : la genouillère pour arthrose PHYSIOstrap® Médical, développée pour être portée quotidiennement et sur une longue durée.",
-              ]}
+              product={productsGonarthrose.physioStrap}
             />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>

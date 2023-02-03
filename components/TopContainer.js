@@ -8,6 +8,7 @@ const TopContainer = ({
   backToPreviousStep,
   returnToFirstStep,
   step,
+  hide,
 }) => {
   return (
     <View style={styles.topContainer}>
@@ -41,7 +42,7 @@ const TopContainer = ({
         style={{
           ...styles.containerBackIcons,
           backgroundColor: isPressed.stopButton ? '#D9D9D9' : '#6892FF',
-          opacity: step !== 0 ? 1 : 0,
+          opacity: 0,
         }}
         onPress={() => returnToFirstStep()}
       >

@@ -38,7 +38,7 @@ const Welcome = ({ navigation }) => {
         style={{
           position: 'absolute',
           top: 0,
-          left: 70,
+          left: Dimensions.get('window').width * 0.09,
           transform: [{ rotate: '90deg' }],
           width: Dimensions.get('window').width * 0.25,
           height: Dimensions.get('window').width * 0.45,
@@ -49,27 +49,35 @@ const Welcome = ({ navigation }) => {
         style={{
           position: 'absolute',
           top: 0,
-          right: 70,
+          right: Dimensions.get('window').width * 0.09,
           transform: [{ rotate: '-90deg' }],
           width: Dimensions.get('window').width * 0.25,
           height: Dimensions.get('window').width * 0.45,
         }}
       />
-      <View style={styles.logo}>
-        <Image
-          source={logo}
-          style={{
-            width: (Dimensions.get('window').width * 0.4) / 1.5,
-            height: (Dimensions.get('window').width * 0.4) / 1.5 / 2,
-          }}
+      <View
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }}
+      >
+        <View style={styles.logo}>
+          <Image
+            source={logo}
+            style={{
+              width: (Dimensions.get('window').width * 0.4) / 1.5,
+              height: (Dimensions.get('window').width * 0.4) / 1.5 / 2,
+            }}
+          />
+        </View>
+        <Ionicons
+          name='shield-outline'
+          size={Dimensions.get('window').width}
+          style={{ position: 'relative', display: 'flex' }}
+          color='#6EC36C'
         />
       </View>
-      <Ionicons
-        name='shield-outline'
-        size={Dimensions.get('window').width}
-        style={{ position: 'relative', display: 'flex' }}
-        color='#6EC36C'
-      />
       <View
         style={{
           width: Dimensions.get('window').width * 0.9,
@@ -143,6 +151,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    top: Dimensions.get('window').height * 0.223,
+    transform: [{ translateY: Dimensions.get('window').width * 0.105 }],
   },
 });

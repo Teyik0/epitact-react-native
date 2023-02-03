@@ -65,7 +65,6 @@ const CanalCarpien = ({ navigation }) => {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        // marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
       <View style={styles.bigCircle} />
@@ -104,25 +103,13 @@ const CanalCarpien = ({ navigation }) => {
           {step >= 2 && answerQ1 === 1 && (
             <Next
               navigation={navigation}
-              imgPath={productsCanalCarpien.carpImmo}
-              productName='Carpien Immobilisateur'
-              littleDesc='Pour soulager les douleurs et fourmillements liés au syndrome du canal carpien'
-              desc={[
-                'Durant la nuit ou dans toutes les situations où vous n’utilisez pas votre main, le port régulier de l’orthèse de repos CARP’IMMO™ est préconisé en cas de syndrome du canal carpien, de troubles musculosquelettiques, d’inflammations ou de tendinites du poignet.',
-                'Contrairement à ce que l’on peut imaginer, le poignet n’est pas mis au repos durant la nuit car nous avons naturellement tendance à le plier et à placer la main sous l’oreiller. La pression est ainsi augmentée dans le canal carpien et des douleurs apparaissent. L’orthèse de poignet pour canal carpien CARP’IMMO™ a pour objectif de maintenir le poignet en position neutre pour favoriser des nuits paisibles et un sommeil réparateur.',
-              ]}
+              product={productsCanalCarpien.carpImmo}
             />
           )}
           {step >= 2 && answerQ1 === 2 && (
             <Next
               navigation={navigation}
-              imgPath={productsCanalCarpien.carpActiv}
-              productName='Carpien Actif'
-              littleDesc='Apaise les fourmillements et douleurs au poignet liés au syndrome du canal carpien'
-              desc={[
-                'L’orthèse EPITACT® pour le canal carpien est une orthèse souple d’activité conçue pour accompagner le poignet durant vos activités. Idéale si vous souffrez du syndrome du canal carpien.',
-                'En limitant l’amplitude des mouvements du poignet et les arrêts brusques dans vos gestes qui favorisent le syndrome du canal carpien, CARP’ACTIV™ vous aide à retrouver plaisir et sérénité dans vos activités quotidiennes. Souple, fine et discrète, cette orthèse pour le canal carpien d’EPITACT® est conçue pour accompagner les mouvements de votre poignet tout en conservant l’usage de vos doigts.',
-              ]}
+              product={productsCanalCarpien.carpActiv}
             />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>
