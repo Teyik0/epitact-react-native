@@ -141,7 +141,7 @@ const Products = ({ route, navigation }) => {
                     paddingLeft: Dimensions.get('window').width * 0.03,
                     paddingRight: Dimensions.get('window').width * 0.03,
                     marginBottom: Dimensions.get('window').height * 0.02,
-                    fontSize: Dimensions.get('window').width * 0.02,
+                    fontSize: Dimensions.get('window').width * 0.015,
                   }}
                 >
                   {item}
