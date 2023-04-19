@@ -14,7 +14,7 @@ import Animated, {
   useAnimatedRef,
 } from 'react-native-reanimated';
 import React, { useState } from 'react';
-import { Pagination } from './';
+import Pagination from './Pagination';
 
 const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }) => {
   const scrollViewRef = useAnimatedRef(null);
