@@ -8,7 +8,7 @@ import Animated, {
 import React, { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const Next = ({ navigation, product }) => {
+const Next = ({ navigation, product }:any) => {
   const [pressed, setPressed] = useState(false);
   const goNext = () => {
     setPressed(true);
@@ -18,6 +18,7 @@ const Next = ({ navigation, product }) => {
       });
       setPressed(false);
     }, 300);
+    return true;
   };
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [

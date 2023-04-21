@@ -6,10 +6,10 @@ import Animated, {
 } from 'react-native-reanimated';
 import React from 'react';
 
-const Pagination = ({ data, x, size }) => {
+const Pagination = ({ data, x, size }: any) => {
   return (
     <View style={styles.paginationContainer}>
-      {data.map((_, index) => {
+      {data.map((item: any, index: number) => {
         const animateDotStyle = useAnimatedStyle(() => {
           const widthAnimation = interpolate(
             x.value,

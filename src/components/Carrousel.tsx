@@ -4,6 +4,7 @@ import {
   useWindowDimensions,
   Dimensions,
   Pressable,
+  ScrollView,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Animated, {
@@ -16,8 +17,8 @@ import Animated, {
 import React, { useState } from 'react';
 import Pagination from './Pagination';
 
-const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }) => {
-  const scrollViewRef = useAnimatedRef(null);
+const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }: any) => {
+  const scrollViewRef: React.MutableRefObject<ScrollView | null> = useAnimatedRef();
   const [newData] = useState([
     { key: 'spacer-left' },
     ...data,
@@ -36,7 +37,7 @@ const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }) => {
     },
   });
 
-  const setNextSympt = (_offSet) => {
+  const setNextSympt = (_offSet: number) => {
     if (_offSet === 0) {
       setCurrentSympt(0);
     } else if (
@@ -61,38 +62,38 @@ const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }) => {
 
   const goBefore = () => {
     if (currentSympt === 0) {
-      scrollViewRef.current.scrollToEnd({ animated: true });
+      scrollViewRef.current?.scrollToEnd({ animated: true });
       offSet.value = offSet.value + 4 * size;
       setNextSympt(setCurrentSympt(4));
     } else {
-      scrollViewRef.current.scrollTo({
+      scrollViewRef.current?.scrollTo({
         x: offSet.value - size,
         animated: true,
       });
       offSet.value = offSet.value - size;
-      setNextSympt(setCurrentSympt((prev) => prev - 1));
+      setNextSympt(setCurrentSympt((prev:any) => prev - 1));
     }
   };
 
   const goNext = () => {
     if (currentSympt === 4) {
-      scrollViewRef.current.scrollTo({ x: 0, animated: true });
+      scrollViewRef.current?.scrollTo({ x: 0, animated: true });
       offSet.value = 0;
       setNextSympt(setCurrentSympt(0));
     } else {
-      scrollViewRef.current.scrollTo({
+      scrollViewRef.current?.scrollTo({
         x: offSet.value + size,
         animated: true,
       });
       offSet.value = offSet.value + size;
-      setNextSympt(setCurrentSympt((prev) => prev + 1));
+      setNextSympt(setCurrentSympt((prev: any) => prev + 1));
     }
   };
 
   return (
     <View>
       <Animated.ScrollView
-        ref={scrollViewRef}
+        ref={() => scrollViewRef}
         horizontal
         showsHorizontalScrollIndicator={false}
         bounces={false}

@@ -8,7 +8,16 @@ import Animated, {
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import React from 'react';
 
-const StartQuestions = ({ isPressed, startQuestions }) => {
+interface StartQuestionProps {
+  isPressed: {
+    startButton: boolean;
+    backButton: boolean;
+    stopButton: boolean;
+  }
+  startQuestions: () => boolean;
+}
+
+const StartQuestions = ({ isPressed, startQuestions }: StartQuestionProps) => {
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
       {
@@ -112,6 +121,6 @@ const styles = StyleSheet.create({
   textStyle: {
     textAlign: 'center',
     fontSize: Dimensions.get('window').width * 0.03,
-    fontWeight: 'semi-bold',
+    fontWeight: 'normal',
   },
 });
