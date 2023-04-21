@@ -6,20 +6,20 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SetStateAction } from 'react';
 import { Navbar, Carrousel } from '../components';
 import { data } from '../utils/data';
 import logo from '../assets/logo.png';
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation }: any) => {
   const [currentSympt, setCurrentSympt] = useState(0);
-  const [isPressed, setIsPressed] = useState([]);
+  const [isPressed, setIsPressed] = useState<boolean[]>([]);
   //Créer un nouveau tableau avec la même taille que le tableau de symptomes
   useEffect(() => {
-    setIsPressed(new Array(data[currentSympt].symptomes.length).fill(false));
+    setIsPressed(new Array(data[currentSympt].symptomes.length).fill(false) as never[]);
   }, [currentSympt]);
   //Pour mettre le background en gris quand on a choisit le symptome
-  handleClickSympt = (index, item) => {
+  const handleClickSympt = (index: number, item: any) => {
     setIsPressed([
       ...isPressed.slice(0, index),
       (isPressed[index] = true),
@@ -33,6 +33,7 @@ const Home = ({ navigation }) => {
       ]);
       navigation.navigate(item.screen);
     }, 150);
+    return true;
   };
 
   return (
@@ -98,9 +99,7 @@ const Home = ({ navigation }) => {
                       ? '#C1C1C1'
                       : 'transparent',
                   }}
-                  onStartShouldSetResponder={() => {
-                    handleClickSympt(index, item);
-                  }}
+                  onStartShouldSetResponder={() => handleClickSympt(index, item)}
                 >
                   <Image
                     source={item.img}

@@ -17,7 +17,7 @@
     "strict": true,
     "target": "esnext"
   },
-  "include": ["./images.d.ts", "./screens"],
+  "include": ["./images.d.ts", "./src"],
   "exclude": [
     "node_modules",
     "babel.config.js",

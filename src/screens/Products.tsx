@@ -1,8 +1,14 @@
 import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Navbar, TopContainer } from '../components';
+import { RouteProp } from '@react-navigation/native';
 
-const Products = ({ route, navigation }) => {
+interface ProductsProps {
+  navigation: any;
+  route: any;
+}
+
+const Products = ({ route, navigation }: ProductsProps) => {
   const { product } = route.params;
   const { productName, littleDescription, price, description, imgPath } =
     product;
@@ -24,6 +30,9 @@ const Products = ({ route, navigation }) => {
       navigation.goBack();
     }, 100);
   };
+  const returnToFirstStep = () => {
+    return;
+  }
   return (
     <>
       <View
@@ -36,7 +45,7 @@ const Products = ({ route, navigation }) => {
         <TopContainer
           isPressed={isPressed}
           backToPreviousStep={backToPreviousStep}
-          hide={true}
+          returnToFirstStep={returnToFirstStep}
         />
         <View style={styles.bigCircle} />
         <View style={styles.littleCircle} />
@@ -86,7 +95,7 @@ const Products = ({ route, navigation }) => {
                   fontSize: Dimensions.get('window').width * 0.03,
                   textAlign: 'left',
                   fontStyle: 'italic',
-                  fontWeight: 'semibold',
+                  fontWeight: 'normal',
                   opacity: 0.75,
                   marginTop: Dimensions.get('window').height * 0.07,
                 }}
@@ -98,7 +107,7 @@ const Products = ({ route, navigation }) => {
                   fontSize: Dimensions.get('window').width * 0.03,
                   textAlign: 'left',
                   fontStyle: 'italic',
-                  fontWeight: 'semibold',
+                  fontWeight: 'normal',
                   color: 'black',
                   opacity: 0.75,
                   marginTop: Dimensions.get('window').height * 0.1,
@@ -109,7 +118,7 @@ const Products = ({ route, navigation }) => {
             </View>
 
             <Image
-              source={JSON.stringify(imgPath)}
+              source={imgPath}
               alt='Hallux Valgus'
               style={{
                 width: '40%',
@@ -134,7 +143,7 @@ const Products = ({ route, navigation }) => {
             }}
           >
             {description &&
-              description.map((item, index) => (
+              description.map((item: any, index: number) => (
                 <Text
                   key={index}
                   style={{

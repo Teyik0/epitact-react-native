@@ -10,7 +10,7 @@ import {
   Cors,
   Gonarthrose,
   TendiniteDeQuervain,
-} from './screens';
+} from './src/screens';
 
 const Stack = createNativeStackNavigator();
 

@@ -5,13 +5,13 @@ import logo from '../assets/logo.png';
 
 interface TopContainerProps {
   isPressed: {
-    startButton: boolean;
+    startButton?: boolean;
     backButton: boolean;
     stopButton: boolean;
   };
   backToPreviousStep: () => void;
   returnToFirstStep: () => void;
-  step: number;                         
+  step?: number;                         
 }
 
 const TopContainer = ({
