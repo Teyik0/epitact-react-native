@@ -7,9 +7,9 @@ import {
   TopContainer,
   Next,
 } from '../components';
-import { productsGonarthrose } from '../utils/data';
+import { productsCanalCarpien } from '../utils/data';
 
-const Gonarthrose = ({ navigation }) => {
+const CanalCarpien = ({ navigation }: any) => {
   const [step, setStep] = useState(0);
   const [isPressed, setIsPressed] = useState({
     startButton: false,
@@ -58,7 +58,7 @@ const Gonarthrose = ({ navigation }) => {
     setAnswerQ4(0);
   }, [answerQ3]);
 
-  const scrollRef = useRef();
+  const scrollRef = useRef<ScrollView>(null);
   return (
     <View
       style={{
@@ -85,26 +85,30 @@ const Gonarthrose = ({ navigation }) => {
         <ScrollView
           ref={scrollRef}
           onContentSizeChange={() =>
-            scrollRef.current.scrollToEnd({ animated: true })
+            scrollRef.current?.scrollToEnd({ animated: true })
           }
         >
           {step >= 1 && (
             <Questions
               question='Quel est votre besoin ?'
-              ans1='Soulager et prévenir l’évolution de l’arthrose'
-              ans2='Sécuriser l’articulation fragile'
-              ans3='Préserver la mobilité articulaire et entretenir le cartilage'
+              ans1='Immobiliser le poignet la nuit'
+              ans2='Préserver le poignet durant la journée'
               setAnswer={setAnswerQ1}
               step={1}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
-          {step >= 2 && (
+          {step >= 2 && answerQ1 === 1 && (
             <Next
               navigation={navigation}
-              product={productsGonarthrose.physioStrap}
+              product={productsCanalCarpien.carpImmo}
+            />
+          )}
+          {step >= 2 && answerQ1 === 2 && (
+            <Next
+              navigation={navigation}
+              product={productsCanalCarpien.carpActiv}
             />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>
@@ -115,7 +119,7 @@ const Gonarthrose = ({ navigation }) => {
   );
 };
 
-export default Gonarthrose;
+export default CanalCarpien;
 
 const styles = StyleSheet.create({
   bigCircle: {

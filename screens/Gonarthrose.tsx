@@ -7,9 +7,9 @@ import {
   TopContainer,
   Next,
 } from '../components';
-import { productsTendiniteDeQuervain } from '../utils/data';
+import { productsGonarthrose } from '../utils/data';
 
-const TendiniteDeQuervain = ({ navigation }) => {
+const Gonarthrose = ({ navigation }: any) => {
   const [step, setStep] = useState(0);
   const [isPressed, setIsPressed] = useState({
     startButton: false,
@@ -58,14 +58,13 @@ const TendiniteDeQuervain = ({ navigation }) => {
     setAnswerQ4(0);
   }, [answerQ3]);
 
-  const scrollRef = useRef();
+  const scrollRef = useRef<ScrollView>(null);
   return (
     <View
       style={{
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        // marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
       <View style={styles.bigCircle} />
@@ -86,31 +85,25 @@ const TendiniteDeQuervain = ({ navigation }) => {
         <ScrollView
           ref={scrollRef}
           onContentSizeChange={() =>
-            scrollRef.current.scrollToEnd({ animated: true })
+            scrollRef.current?.scrollToEnd({ animated: true })
           }
         >
           {step >= 1 && (
             <Questions
-              question='Pour quel moment ?'
-              ans1='Pendant les activités manuelles'
-              ans2='Pour le repos'
+              question='Quel est votre besoin ?'
+              ans1='Soulager et prévenir l’évolution de l’arthrose'
+              ans2='Sécuriser l’articulation fragile'
+              ans3='Préserver la mobilité articulaire et entretenir le cartilage'
               setAnswer={setAnswerQ1}
               step={1}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
-          {step >= 2 && answerQ1 === 1 && (
+          {step >= 2 && (
             <Next
               navigation={navigation}
-              product={productsTendiniteDeQuervain.quervActiv}
-            />
-          )}
-          {step >= 2 && answerQ1 === 2 && (
-            <Next
-              navigation={navigation}
-              product={productsTendiniteDeQuervain.quervImmo}
+              product={productsGonarthrose.physioStrap}
             />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>
@@ -121,7 +114,7 @@ const TendiniteDeQuervain = ({ navigation }) => {
   );
 };
 
-export default TendiniteDeQuervain;
+export default Gonarthrose;
 
 const styles = StyleSheet.create({
   bigCircle: {

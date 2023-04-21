@@ -4,7 +4,6 @@ import {
   Welcome,
   Home,
   HalluxValgusPieds,
-  CrevassesTalonnieresPieds,
   Products,
   CanalCarpien,
   Rhizarthrose,
@@ -26,10 +25,6 @@ const App = () => {
         <Stack.Screen name='Home' component={Home} />
         <Stack.Screen name='Products' component={Products} />
         <Stack.Screen name='HalluxValgusPieds' component={HalluxValgusPieds} />
-        <Stack.Screen
-          name='CrevassesTalonnieresPieds'
-          component={CrevassesTalonnieresPieds}
-        />
         <Stack.Screen name='CanalCarpien' component={CanalCarpien} />
         <Stack.Screen name='Rhizarthrose' component={Rhizarthrose} />
         <Stack.Screen name='Cors' component={Cors} />

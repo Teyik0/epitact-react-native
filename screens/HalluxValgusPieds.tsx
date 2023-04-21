@@ -15,7 +15,7 @@ import {
 } from '../components';
 import { productsHalgusValgus } from '../utils/data';
 
-const HalluxValgusPieds = ({ navigation }) => {
+const HalluxValgusPieds = ({ navigation }: any) => {
   const [step, setStep] = useState(0);
   const [isPressed, setIsPressed] = useState({
     startButton: false,
@@ -64,7 +64,7 @@ const HalluxValgusPieds = ({ navigation }) => {
     setAnswerQ4(0);
   }, [answerQ3]);
 
-  const scrollRef = useRef();
+  const scrollRef = useRef<ScrollView>(null);
 
   return (
     <View
@@ -93,7 +93,7 @@ const HalluxValgusPieds = ({ navigation }) => {
         <ScrollView
           ref={scrollRef}
           onContentSizeChange={() =>
-            scrollRef.current.scrollToEnd({ animated: true })
+            scrollRef.current?.scrollToEnd({ animated: true })
           }
         >
           {step >= 1 && (
@@ -105,7 +105,6 @@ const HalluxValgusPieds = ({ navigation }) => {
               step={1}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 2 && answerQ1 === 1 && (
@@ -118,7 +117,6 @@ const HalluxValgusPieds = ({ navigation }) => {
               step={2}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 2 && answerQ1 === 2 && (
@@ -131,7 +129,6 @@ const HalluxValgusPieds = ({ navigation }) => {
               step={2}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 3 && answerQ1 === 2 && answerQ2 === 1 && (
@@ -143,7 +140,6 @@ const HalluxValgusPieds = ({ navigation }) => {
               step={3}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 1 && (
@@ -161,7 +157,6 @@ const HalluxValgusPieds = ({ navigation }) => {
               currentStep={step}
               setAnswer={setAnswerQ4}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 5 &&
@@ -218,7 +213,6 @@ const HalluxValgusPieds = ({ navigation }) => {
               currentStep={step}
               setAnswer={setAnswerQ3}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 4 && answerQ1 === 1 && answerQ2 === 3 && answerQ3 === 1 && (
@@ -230,7 +224,6 @@ const HalluxValgusPieds = ({ navigation }) => {
               currentStep={step}
               setAnswer={setAnswerQ4}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 5 &&

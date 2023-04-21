@@ -7,9 +7,9 @@ import {
   TopContainer,
   Next,
 } from '../components';
-import { productsCanalCarpien } from '../utils/data';
+import { productsRhizarthrose } from '../utils/data';
 
-const CanalCarpien = ({ navigation }) => {
+const Rhizarthrose = ({ navigation }: any) => {
   const [step, setStep] = useState(0);
   const [isPressed, setIsPressed] = useState({
     startButton: false,
@@ -58,13 +58,14 @@ const CanalCarpien = ({ navigation }) => {
     setAnswerQ4(0);
   }, [answerQ3]);
 
-  const scrollRef = useRef();
+  const scrollRef = useRef<ScrollView>(null);
   return (
     <View
       style={{
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
+        // marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
       <View style={styles.bigCircle} />
@@ -85,31 +86,78 @@ const CanalCarpien = ({ navigation }) => {
         <ScrollView
           ref={scrollRef}
           onContentSizeChange={() =>
-            scrollRef.current.scrollToEnd({ animated: true })
+            scrollRef.current?.scrollToEnd({ animated: true })
           }
         >
           {step >= 1 && (
             <Questions
               question='Quel est votre besoin ?'
-              ans1='Immobiliser le poignet la nuit'
-              ans2='Préserver le poignet durant la journée'
+              ans1="Préserver l'articulation durant les activités manuelles"
+              ans2='Limiter les micro-mouvements traumatisants'
+              ans3='Maintenir le pouce au repos'
               setAnswer={setAnswerQ1}
               step={1}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 2 && answerQ1 === 1 && (
             <Next
               navigation={navigation}
-              product={productsCanalCarpien.carpImmo}
+              product={productsRhizarthrose.soupleActivite}
             />
           )}
           {step >= 2 && answerQ1 === 2 && (
+            <Questions
+              question='Pour quel utilisation ?'
+              ans1='En journée durant les activités'
+              ans2='La nuit'
+              ans3='Au repos'
+              setAnswer={setAnswerQ2}
+              step={2}
+              currentStep={step}
+              setStep={setStep}
+            />
+          )}
+          {step >= 3 && answerQ1 === 2 && answerQ2 === 1 && (
             <Next
               navigation={navigation}
-              product={productsCanalCarpien.carpActiv}
+              product={productsRhizarthrose.soupleActivite}
+            />
+          )}
+          {step >= 3 && answerQ1 === 2 && answerQ2 === 2 && (
+            <Next
+              navigation={navigation}
+              product={productsRhizarthrose.thermoformable}
+            />
+          )}
+          {step >= 3 && answerQ1 === 2 && answerQ2 === 3 && (
+            <Next
+              navigation={navigation}
+              product={productsRhizarthrose.rigideDeRepos}
+            />
+          )}
+          {step >= 2 && answerQ1 === 3 && (
+            <Questions
+              question='Pour quel utilisation ?'
+              ans1='La nuit'
+              ans2='La journée'
+              setAnswer={setAnswerQ2}
+              step={2}
+              currentStep={step}
+              setStep={setStep}
+            />
+          )}
+          {step >= 3 && answerQ1 === 3 && answerQ2 === 1 && (
+            <Next
+              navigation={navigation}
+              product={productsRhizarthrose.thermoformable}
+            />
+          )}
+          {step >= 3 && answerQ1 === 3 && answerQ2 === 2 && (
+            <Next
+              navigation={navigation}
+              product={productsRhizarthrose.rigideDeRepos}
             />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>
@@ -120,7 +168,7 @@ const CanalCarpien = ({ navigation }) => {
   );
 };
 
-export default CanalCarpien;
+export default Rhizarthrose;
 
 const styles = StyleSheet.create({
   bigCircle: {

@@ -1,10 +1,22 @@
 import { View, Text, StyleSheet, Dimensions, Pressable } from 'react-native';
+import { Dispatch, SetStateAction } from 'react';
 import React, { useEffect, useState } from 'react';
 import Animated, {
   FadeInUp,
   Layout,
   FadeOutDown,
 } from 'react-native-reanimated';
+
+interface QuestionsProps {
+  question: string;
+  ans1: string;
+  ans2: string;
+  ans3?: string;
+  setAnswer: Dispatch<SetStateAction<number>>;
+  step: number;
+  currentStep: number;
+  setStep: Dispatch<SetStateAction<number>>;
+}
 
 const Questions = ({
   question,
@@ -15,7 +27,7 @@ const Questions = ({
   step,
   currentStep,
   setStep,
-}) => {
+}: QuestionsProps) => {
   const [isToggle, setIsToggle] = useState({
     firstAns: false,
     secondAns: false,
@@ -123,6 +135,6 @@ const styles = StyleSheet.create({
   textStyle: {
     textAlign: 'center',
     fontSize: Dimensions.get('window').width * 0.025,
-    fontWeight: 'semi-bold',
+    fontWeight: 'normal',
   },
 });

@@ -10,7 +10,7 @@ import Animated, {
 import logo from '../assets/logo.png';
 import im2 from '../assets/2.png';
 
-const Welcome = ({ navigation }) => {
+const Welcome = ({ navigation }: any) => {
   const [isPressed, setIsPressed] = useState(false);
   const handleClick = () => {
     setIsPressed(true);
@@ -18,6 +18,7 @@ const Welcome = ({ navigation }) => {
       navigation.navigate('Home');
       setIsPressed(false);
     }, 10);
+    return true;
   };
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [

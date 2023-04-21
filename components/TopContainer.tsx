@@ -3,13 +3,23 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import React from 'react';
 import logo from '../assets/logo.png';
 
+interface TopContainerProps {
+  isPressed: {
+    startButton: boolean;
+    backButton: boolean;
+    stopButton: boolean;
+  };
+  backToPreviousStep: () => void;
+  returnToFirstStep: () => void;
+  step: number;                         
+}
+
 const TopContainer = ({
   isPressed,
   backToPreviousStep,
   returnToFirstStep,
   step,
-  hide,
-}) => {
+}: TopContainerProps) => {
   return (
     <View style={styles.topContainer}>
       {/* Bouton back */}

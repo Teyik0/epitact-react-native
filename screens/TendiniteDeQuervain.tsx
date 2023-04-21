@@ -7,9 +7,9 @@ import {
   TopContainer,
   Next,
 } from '../components';
-import { productsRhizarthrose } from '../utils/data';
+import { productsTendiniteDeQuervain } from '../utils/data';
 
-const Rhizarthrose = ({ navigation }) => {
+const TendiniteDeQuervain = ({ navigation }: any) => {
   const [step, setStep] = useState(0);
   const [isPressed, setIsPressed] = useState({
     startButton: false,
@@ -58,7 +58,7 @@ const Rhizarthrose = ({ navigation }) => {
     setAnswerQ4(0);
   }, [answerQ3]);
 
-  const scrollRef = useRef();
+  const scrollRef = useRef<ScrollView>(null);
   return (
     <View
       style={{
@@ -84,83 +84,32 @@ const Rhizarthrose = ({ navigation }) => {
       {/* QUESTIONNAIRE */}
       {step >= 1 && (
         <ScrollView
-          ref={scrollRef}
+          ref={() => scrollRef}
           onContentSizeChange={() =>
-            scrollRef.current.scrollToEnd({ animated: true })
+              scrollRef.current?.scrollToEnd({ animated: true })
           }
         >
           {step >= 1 && (
             <Questions
-              question='Quel est votre besoin ?'
-              ans1="Préserver l'articulation durant les activités manuelles"
-              ans2='Limiter les micro-mouvements traumatisants'
-              ans3='Maintenir le pouce au repos'
+              question='Pour quel moment ?'
+              ans1='Pendant les activités manuelles'
+              ans2='Pour le repos'
               setAnswer={setAnswerQ1}
               step={1}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 2 && answerQ1 === 1 && (
             <Next
               navigation={navigation}
-              product={productsRhizarthrose.soupleActivite}
+              product={productsTendiniteDeQuervain.quervActiv}
             />
           )}
           {step >= 2 && answerQ1 === 2 && (
-            <Questions
-              question='Pour quel utilisation ?'
-              ans1='En journée durant les activités'
-              ans2='La nuit'
-              ans3='Au repos'
-              setAnswer={setAnswerQ2}
-              step={2}
-              currentStep={step}
-              setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
-            />
-          )}
-          {step >= 3 && answerQ1 === 2 && answerQ2 === 1 && (
             <Next
               navigation={navigation}
-              product={productsRhizarthrose.soupleActivite}
-            />
-          )}
-          {step >= 3 && answerQ1 === 2 && answerQ2 === 2 && (
-            <Next
-              navigation={navigation}
-              product={productsRhizarthrose.thermoformable}
-            />
-          )}
-          {step >= 3 && answerQ1 === 2 && answerQ2 === 3 && (
-            <Next
-              navigation={navigation}
-              product={productsRhizarthrose.rigideDeRepos}
-            />
-          )}
-          {step >= 2 && answerQ1 === 3 && (
-            <Questions
-              question='Pour quel utilisation ?'
-              ans1='La nuit'
-              ans2='La journée'
-              setAnswer={setAnswerQ2}
-              step={2}
-              currentStep={step}
-              setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
-            />
-          )}
-          {step >= 3 && answerQ1 === 3 && answerQ2 === 1 && (
-            <Next
-              navigation={navigation}
-              product={productsRhizarthrose.thermoformable}
-            />
-          )}
-          {step >= 3 && answerQ1 === 3 && answerQ2 === 2 && (
-            <Next
-              navigation={navigation}
-              product={productsRhizarthrose.rigideDeRepos}
+              product={productsTendiniteDeQuervain.quervImmo}
             />
           )}
           <View style={{ height: Dimensions.get('window').height / 5 }}></View>
@@ -171,7 +120,7 @@ const Rhizarthrose = ({ navigation }) => {
   );
 };
 
-export default Rhizarthrose;
+export default TendiniteDeQuervain;
 
 const styles = StyleSheet.create({
   bigCircle: {

@@ -9,7 +9,7 @@ import {
 } from '../components';
 import { productsCors } from '../utils/data';
 
-const Cors = ({ navigation }) => {
+const Cors = ({ navigation }: any) => {
   const [step, setStep] = useState(0);
   const [isPressed, setIsPressed] = useState({
     startButton: false,
@@ -58,7 +58,7 @@ const Cors = ({ navigation }) => {
     setAnswerQ4(0);
   }, [answerQ3]);
 
-  const scrollRef = useRef();
+  const scrollRef = useRef<ScrollView>(null);
   return (
     <View
       style={{
@@ -85,7 +85,7 @@ const Cors = ({ navigation }) => {
         <ScrollView
           ref={scrollRef}
           onContentSizeChange={() =>
-            scrollRef.current.scrollToEnd({ animated: true })
+            scrollRef.current?.scrollToEnd({ animated: true })
           }
         >
           {step >= 1 && (
@@ -97,7 +97,6 @@ const Cors = ({ navigation }) => {
               step={1}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 2 && answerQ1 === 1 && (
@@ -116,7 +115,6 @@ const Cors = ({ navigation }) => {
               step={2}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 2 && answerQ1 === 2 && answerQ2 === 2 && (
@@ -138,7 +136,6 @@ const Cors = ({ navigation }) => {
               step={3}
               currentStep={step}
               setStep={setStep}
-              backToPreviousStep={backToPreviousStep}
             />
           )}
           {step >= 4 && answerQ1 === 2 && answerQ2 === 1 && answerQ3 === 1 && (
