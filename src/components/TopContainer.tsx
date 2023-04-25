@@ -5,9 +5,14 @@ import logo from "../assets/logo.png";
 import { useAtom } from "jotai";
 import { isButtonPressedAtom, userStepAtom } from "../utils/store";
 
-const TopContainer = () => {
+const TopContainer = ({
+  goBackToQuestion,
+}: {
+  goBackToQuestion?: () => void;
+}) => {
   const [isButtonPressed, setIsButtonPressed] = useAtom(isButtonPressedAtom);
   const [userStep, setUserStep] = useAtom(userStepAtom);
+
   const backToPreviousStep = () => {
     setIsButtonPressed(true);
     setTimeout(() => {
@@ -15,6 +20,7 @@ const TopContainer = () => {
       setIsButtonPressed(false);
     }, 50);
   };
+
   return (
     <View style={styles.topContainer}>
       {/* Bouton back */}
@@ -24,7 +30,9 @@ const TopContainer = () => {
           backgroundColor: isButtonPressed ? "#D9D9D9" : "#6892FF",
           opacity: userStep !== 0 ? 1 : 0,
         }}
-        onPress={() => backToPreviousStep()}
+        onPress={() =>
+          goBackToQuestion ? goBackToQuestion : backToPreviousStep()
+        }
       >
         <Ionicons
           name="arrow-back-outline"

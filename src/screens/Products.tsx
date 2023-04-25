@@ -1,7 +1,9 @@
-import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { Navbar, TopContainer } from '../components';
-import { RouteProp } from '@react-navigation/native';
+import { View, Image, Text, StyleSheet, Dimensions } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Navbar, TopContainer } from "../components";
+import { RouteProp } from "@react-navigation/native";
+import { useAtom } from "jotai";
+import { isButtonPressedAtom } from "../utils/store";
 
 interface ProductsProps {
   navigation: any;
@@ -19,98 +21,89 @@ const Products = ({ route, navigation }: ProductsProps) => {
     }, 3 * 60 * 1000);
   }, []);
 
-  const [isPressed, setIsPressed] = useState({
-    backButton: false,
-    stopButton: false,
-  }); //état des boutons start, retour et stop
-  const backToPreviousStep = () => {
-    setIsPressed({ ...isPressed, backButton: true });
+  const [, setIsButtonPressed] = useAtom(isButtonPressedAtom);
+  const goBackToQuestion = () => {
+    console.log("test");
+    setIsButtonPressed(true);
     setTimeout(() => {
-      setIsPressed({ ...isPressed, backButton: false });
-      navigation.goBack();
+      setIsButtonPressed(false);
+      navigation?.goBack();
     }, 100);
   };
-  const returnToFirstStep = () => {
-    return;
-  }
   return (
     <>
       <View
         style={{
           flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <TopContainer
-          isPressed={isPressed}
-          backToPreviousStep={backToPreviousStep}
-          returnToFirstStep={returnToFirstStep}
-        />
+        <TopContainer goBackToQuestion={goBackToQuestion} />
         <View style={styles.bigCircle} />
         <View style={styles.littleCircle} />
 
         <View
           style={{
             flex: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <View
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-evenly',
-              width: '90%',
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-evenly",
+              width: "90%",
               marginBottom: 40,
-              borderRadius: Dimensions.get('window').width * 0.06,
+              borderRadius: Dimensions.get("window").width * 0.06,
               paddingTop: 20,
               paddingBottom: 20,
-              backgroundColor: '#DFEBF9',
+              backgroundColor: "#DFEBF9",
               elevation: 4,
             }}
           >
             <View
               style={{
-                width: '40%',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
+                width: "40%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
               }}
             >
               <Text
                 style={{
-                  fontSize: Dimensions.get('window').width * 0.037,
-                  textTransform: 'uppercase',
-                  fontWeight: 'bold',
+                  fontSize: Dimensions.get("window").width * 0.037,
+                  textTransform: "uppercase",
+                  fontWeight: "bold",
                 }}
               >
                 {productName}
               </Text>
               <Text
                 style={{
-                  fontSize: Dimensions.get('window').width * 0.03,
-                  textAlign: 'left',
-                  fontStyle: 'italic',
-                  fontWeight: 'normal',
+                  fontSize: Dimensions.get("window").width * 0.03,
+                  textAlign: "left",
+                  fontStyle: "italic",
+                  fontWeight: "normal",
                   opacity: 0.75,
-                  marginTop: Dimensions.get('window').height * 0.07,
+                  marginTop: Dimensions.get("window").height * 0.07,
                 }}
               >
                 {littleDescription}
               </Text>
               <Text
                 style={{
-                  fontSize: Dimensions.get('window').width * 0.03,
-                  textAlign: 'left',
-                  fontStyle: 'italic',
-                  fontWeight: 'normal',
-                  color: 'black',
+                  fontSize: Dimensions.get("window").width * 0.03,
+                  textAlign: "left",
+                  fontStyle: "italic",
+                  fontWeight: "normal",
+                  color: "black",
                   opacity: 0.75,
-                  marginTop: Dimensions.get('window').height * 0.1,
+                  marginTop: Dimensions.get("window").height * 0.1,
                 }}
               >
                 {`Prix : ${price}`}
@@ -119,10 +112,10 @@ const Products = ({ route, navigation }: ProductsProps) => {
 
             <Image
               source={imgPath}
-              alt='Hallux Valgus'
+              alt="Hallux Valgus"
               style={{
-                width: '40%',
-                height: 'auto',
+                width: "40%",
+                height: "auto",
                 aspectRatio: 0.67,
                 marginTop: 20,
               }}
@@ -130,15 +123,15 @@ const Products = ({ route, navigation }: ProductsProps) => {
           </View>
           <View
             style={{
-              backgroundColor: '#DFEBF9',
-              width: '90%',
-              paddingTop: Dimensions.get('window').height * 0.02,
+              backgroundColor: "#DFEBF9",
+              width: "90%",
+              paddingTop: Dimensions.get("window").height * 0.02,
               paddingBottom: 0,
-              paddingLeft: Dimensions.get('window').width * 0.02,
-              paddingRight: Dimensions.get('window').width * 0.02,
+              paddingLeft: Dimensions.get("window").width * 0.02,
+              paddingRight: Dimensions.get("window").width * 0.02,
               elevation: 4,
-              borderRadius: Dimensions.get('window').width * 0.06,
-              position: 'absolute',
+              borderRadius: Dimensions.get("window").width * 0.06,
+              position: "absolute",
               bottom: 30,
             }}
           >
@@ -147,10 +140,10 @@ const Products = ({ route, navigation }: ProductsProps) => {
                 <Text
                   key={index}
                   style={{
-                    paddingLeft: Dimensions.get('window').width * 0.03,
-                    paddingRight: Dimensions.get('window').width * 0.03,
-                    marginBottom: Dimensions.get('window').height * 0.02,
-                    fontSize: Dimensions.get('window').width * 0.015,
+                    paddingLeft: Dimensions.get("window").width * 0.03,
+                    paddingRight: Dimensions.get("window").width * 0.03,
+                    marginBottom: Dimensions.get("window").height * 0.02,
+                    fontSize: Dimensions.get("window").width * 0.015,
                   }}
                 >
                   {item}
@@ -161,7 +154,7 @@ const Products = ({ route, navigation }: ProductsProps) => {
       </View>
       <Navbar
         navigation={navigation}
-        navPath={timerDone ? 'Welcome' : 'Home'}
+        navPath={timerDone ? "Welcome" : "Home"}
       />
     </>
   );
@@ -171,25 +164,25 @@ export default Products;
 
 const styles = StyleSheet.create({
   bigCircle: {
-    width: Dimensions.get('window').height * 0.6,
-    height: Dimensions.get('window').height * 0.6,
+    width: Dimensions.get("window").height * 0.6,
+    height: Dimensions.get("window").height * 0.6,
     borderRadius: 1000,
-    backgroundColor: '#6892FF',
+    backgroundColor: "#6892FF",
     opacity: 0.5,
-    position: 'absolute',
-    top: Dimensions.get('window').height * 0.14,
-    right: Dimensions.get('window').width * 0.14,
+    position: "absolute",
+    top: Dimensions.get("window").height * 0.14,
+    right: Dimensions.get("window").width * 0.14,
     left: -150,
     zIndex: -1,
   },
   littleCircle: {
-    width: Dimensions.get('window').height * 0.47,
-    height: Dimensions.get('window').height * 0.47,
+    width: Dimensions.get("window").height * 0.47,
+    height: Dimensions.get("window").height * 0.47,
     borderRadius: 1000,
-    backgroundColor: '#6EC36C',
+    backgroundColor: "#6EC36C",
     opacity: 0.4,
-    position: 'absolute',
-    top: Dimensions.get('window').height * 0.48,
+    position: "absolute",
+    top: Dimensions.get("window").height * 0.48,
     right: -200,
   },
 });

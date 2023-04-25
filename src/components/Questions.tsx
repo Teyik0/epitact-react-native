@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
-import { Dispatch, SetStateAction } from "react";
 import Animated, {
   FadeInUp,
   Layout,
@@ -26,26 +25,16 @@ const Questions = ({ question, ans1, ans2, ans3, step }: QuestionsProps) => {
   const [userStep, setUserStep] = useAtom(userStepAtom);
   const [answer, setAnswer] = useAtom(answerAtom);
 
-  const handleAnswer = (answerNumber: number) => {
+  const handleClick = (answerNumber: number) => {
+    setIsToggle({
+      firstAns: answerNumber === 1 ? true : false,
+      secondAns: answerNumber === 2 ? true : false,
+      thirdAns: answerNumber === 3 ? true : false,
+    });
     if (step === 1) setAnswer({ ...answer, q1: answerNumber });
     if (step === 2) setAnswer({ ...answer, q2: answerNumber });
     if (step === 3) setAnswer({ ...answer, q3: answerNumber });
     if (step === 4) setAnswer({ ...answer, q4: answerNumber });
-  };
-
-  const handleClick1 = () => {
-    setIsToggle({ firstAns: true, secondAns: false, thirdAns: false });
-    handleAnswer(1);
-    setUserStep(step + 1);
-  };
-  const handleClick2 = () => {
-    setIsToggle({ firstAns: false, secondAns: true, thirdAns: false });
-    handleAnswer(2);
-    setUserStep(step + 1);
-  };
-  const handleClick3 = () => {
-    setIsToggle({ firstAns: false, secondAns: false, thirdAns: true });
-    handleAnswer(3);
     setUserStep(step + 1);
   };
 
@@ -76,7 +65,7 @@ const Questions = ({ question, ans1, ans2, ans3, step }: QuestionsProps) => {
       <View style={styles.container}>
         {/* FirstQuestion */}
         <Pressable
-          onPress={handleClick1}
+          onPress={() => handleClick(1)}
           style={{
             ...styles.questionBlock,
             backgroundColor: isToggle.firstAns ? "gray" : "white",
@@ -86,7 +75,7 @@ const Questions = ({ question, ans1, ans2, ans3, step }: QuestionsProps) => {
         </Pressable>
         {/* SecondQuestion */}
         <Pressable
-          onPress={handleClick2}
+          onPress={() => handleClick(2)}
           style={{
             ...styles.questionBlock,
             backgroundColor: isToggle.secondAns ? "gray" : "white",
@@ -97,7 +86,7 @@ const Questions = ({ question, ans1, ans2, ans3, step }: QuestionsProps) => {
         {/* ThirdQuestion */}
         {ans3 && (
           <Pressable
-            onPress={handleClick3}
+            onPress={() => handleClick(3)}
             style={{
               ...styles.questionBlock,
               backgroundColor: isToggle.thirdAns ? "gray" : "white",

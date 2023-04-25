@@ -1,5 +1,5 @@
 import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Navbar,
   Questions,
@@ -13,7 +13,7 @@ import { answerAtom, userStepAtom } from "../utils/store";
 
 const TendiniteDeQuervain = ({ navigation }: any) => {
   const [userStep, setUserStep] = useAtom(userStepAtom);
-  const [answer, setAnswer] = useAtom(answerAtom);
+  const [answer] = useAtom(answerAtom);
   useEffect(() => {
     setUserStep(0);
   }, []);
@@ -47,7 +47,6 @@ const TendiniteDeQuervain = ({ navigation }: any) => {
               question="Pour quel moment ?"
               ans1="Pendant les activités manuelles"
               ans2="Pour le repos"
-              setAns={setAnswerQ1}
               step={1}
             />
           )}
