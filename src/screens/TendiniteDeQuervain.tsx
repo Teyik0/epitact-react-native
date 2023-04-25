@@ -1,121 +1,71 @@
-import { View, StyleSheet, Dimensions, ScrollView } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
+import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
+import React, { useEffect, useRef } from "react";
 import {
   Navbar,
   Questions,
   StartQuestions,
   TopContainer,
   Next,
-} from '../components';
-import { productsTendiniteDeQuervain } from '../utils/data';
+} from "../components";
+import { productsTendiniteDeQuervain } from "../utils/data";
+import { useAtom } from "jotai";
+import { answerAtom, userStepAtom } from "../utils/store";
 
 const TendiniteDeQuervain = ({ navigation }: any) => {
-  const [step, setStep] = useState(0);
-  const [isPressed, setIsPressed] = useState({
-    startButton: false,
-    backButton: false,
-    stopButton: false,
-  }); //état des boutons start, retour et stop
-  const startQuestions = () => {
-    setIsPressed({ ...isPressed, startButton: true });
-    setTimeout(() => {
-      setStep((prev) => prev + 1);
-      setIsPressed({ ...isPressed, startButton: false });
-    }, 10);
-  };
-  const backToPreviousStep = () => {
-    if (step !== 0) {
-      setIsPressed({ ...isPressed, backButton: true });
-      setTimeout(() => {
-        setIsPressed({ ...isPressed, backButton: false });
-        setStep((prev) => prev - 1);
-      }, 100);
-    }
-  };
-  const returnToFirstStep = () => {
-    setIsPressed({ ...isPressed, stopButton: true });
-    setTimeout(() => {
-      setIsPressed({ ...isPressed, stopButton: false });
-      setStep(0);
-    }, 100);
-  };
-  //0 signifie qu'aucune réponse n'a été choisi ou répondu
-  const [answerQ1, setAnswerQ1] = useState(0);
-  const [answerQ2, setAnswerQ2] = useState(0);
-  const [answerQ3, setAnswerQ3] = useState(0);
-  const [answerQ4, setAnswerQ4] = useState(0);
-  //Reset des questions à chaque changement de réponse antérieur
+  const [userStep, setUserStep] = useAtom(userStepAtom);
+  const [answer] = useAtom(answerAtom);
   useEffect(() => {
-    setAnswerQ2(0);
-    setAnswerQ3(0);
-    setAnswerQ4(0);
-  }, [answerQ1]);
-  useEffect(() => {
-    setAnswerQ3(0);
-    setAnswerQ4(0);
-  }, [answerQ2]);
-  useEffect(() => {
-    setAnswerQ4(0);
-  }, [answerQ3]);
-
+    setUserStep(0);
+  }, []);
   const scrollRef = useRef<ScrollView>(null);
+
   return (
     <View
       style={{
         flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         // marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
       }}
     >
       <View style={styles.bigCircle} />
       <View style={styles.littleCircle} />
 
-      <TopContainer
-        isPressed={isPressed}
-        backToPreviousStep={backToPreviousStep}
-        returnToFirstStep={returnToFirstStep}
-        step={step}
-      />
+      <TopContainer />
 
-      {step === 0 && (
-        <StartQuestions isPressed={isPressed} startQuestions={startQuestions} />
-      )}
+      {userStep === 0 && <StartQuestions />}
       {/* QUESTIONNAIRE */}
-      {step >= 1 && (
+      {userStep >= 1 && (
         <ScrollView
-          ref={() => scrollRef}
+          ref={scrollRef}
           onContentSizeChange={() =>
-              scrollRef.current?.scrollToEnd({ animated: true })
+            scrollRef.current?.scrollToEnd({ animated: true })
           }
         >
-          {step >= 1 && (
+          {userStep >= 1 && (
             <Questions
-              question='Pour quel moment ?'
-              ans1='Pendant les activités manuelles'
-              ans2='Pour le repos'
-              setAnswer={setAnswerQ1}
+              question="Pour quel moment ?"
+              ans1="Pendant les activités manuelles"
+              ans2="Pour le repos"
               step={1}
-              currentStep={step}
-              setStep={setStep}
             />
           )}
-          {step >= 2 && answerQ1 === 1 && (
+          {userStep >= 2 && answer.q1 === 1 && (
             <Next
               navigation={navigation}
               product={productsTendiniteDeQuervain.quervActiv}
             />
           )}
-          {step >= 2 && answerQ1 === 2 && (
+          {userStep >= 2 && answer.q1 === 2 && (
             <Next
               navigation={navigation}
               product={productsTendiniteDeQuervain.quervImmo}
             />
           )}
-          <View style={{ height: Dimensions.get('window').height / 5 }}></View>
+          <View style={{ height: Dimensions.get("window").height / 5 }}></View>
         </ScrollView>
       )}
-      <Navbar navigation={navigation} navPath='Home' />
+      <Navbar navigation={navigation} navPath="Home" />
     </View>
   );
 };
@@ -124,25 +74,25 @@ export default TendiniteDeQuervain;
 
 const styles = StyleSheet.create({
   bigCircle: {
-    width: Dimensions.get('window').height * 0.6,
-    height: Dimensions.get('window').height * 0.6,
+    width: Dimensions.get("window").height * 0.6,
+    height: Dimensions.get("window").height * 0.6,
     borderRadius: 1000,
-    backgroundColor: '#6892FF',
+    backgroundColor: "#6892FF",
     opacity: 0.4,
-    position: 'absolute',
-    top: Dimensions.get('window').height * 0.12,
-    right: Dimensions.get('window').width * 0.12,
+    position: "absolute",
+    top: Dimensions.get("window").height * 0.12,
+    right: Dimensions.get("window").width * 0.12,
     left: -150,
     zIndex: -1,
   },
   littleCircle: {
-    width: Dimensions.get('window').height * 0.45,
-    height: Dimensions.get('window').height * 0.45,
+    width: Dimensions.get("window").height * 0.45,
+    height: Dimensions.get("window").height * 0.45,
     borderRadius: 1000,
-    backgroundColor: '#6EC36C',
+    backgroundColor: "#6EC36C",
     opacity: 0.3,
-    position: 'absolute',
-    top: Dimensions.get('window').height * 0.48,
+    position: "absolute",
+    top: Dimensions.get("window").height * 0.48,
     right: -200,
   },
 });

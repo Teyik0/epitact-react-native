@@ -22,6 +22,7 @@ const CanalCarpien = ({ navigation }: any) => {
       setStep((prev) => prev + 1);
       setIsPressed({ ...isPressed, startButton: false });
     }, 10);
+    return true;
   };
   const backToPreviousStep = () => {
     if (step !== 0) {

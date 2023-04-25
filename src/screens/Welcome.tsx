@@ -84,7 +84,7 @@ const Welcome = ({ navigation }: any) => {
           width: Dimensions.get('window').width * 0.9,
           backgroundColor: '#4A88D0',
           position: 'absolute',
-          borderRadius: 35,
+          borderRadius: Dimensions.get('window').width * 0.03,
           padding: Dimensions.get('window').width * 0.05,
         }}
       >

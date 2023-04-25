@@ -5,6 +5,7 @@ import Questions from './Questions';
 import TopContainer from './TopContainer';
 import StartQuestions from './StartQuestions';
 import Next from './Next';
+import ArrowForCarroussel from './ArrowForCarroussel';
 export {
   Navbar,
   Carrousel,
@@ -13,4 +14,5 @@ export {
   TopContainer,
   StartQuestions,
   Next,
+  ArrowForCarroussel
 };

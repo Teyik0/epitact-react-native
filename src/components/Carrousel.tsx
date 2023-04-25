@@ -5,24 +5,32 @@ import {
   Dimensions,
   Pressable,
   ScrollView,
-} from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+} from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   useAnimatedScrollHandler,
   interpolate,
   useAnimatedRef,
-} from 'react-native-reanimated';
-import React, { useState } from 'react';
-import Pagination from './Pagination';
+} from "react-native-reanimated";
+import React, { useState } from "react";
+import Pagination from "./Pagination";
+import ArrowForCarroussel from "./ArrowForCarroussel";
 
-const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }: any) => {
-  const scrollViewRef: React.MutableRefObject<ScrollView | null> = useAnimatedRef();
+const Carrousel = ({
+  data,
+  setCurrentSympt,
+  currentSympt,
+  pagination,
+  arrow,
+  scrollOnObjectClick,
+}: any) => {
+  const scrollViewRef = useAnimatedRef<Animated.ScrollView>();
   const [newData] = useState([
-    { key: 'spacer-left' },
+    { key: "spacer-left" },
     ...data,
-    { key: 'spacer-right' },
+    { key: "spacer-right" },
   ]);
 
   const { width } = useWindowDimensions();
@@ -64,14 +72,16 @@ const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }: any) => 
     if (currentSympt === 0) {
       scrollViewRef.current?.scrollToEnd({ animated: true });
       offSet.value = offSet.value + 4 * size;
-      setNextSympt(setCurrentSympt(4));
+      setCurrentSympt(4);
+      setNextSympt(offSet.value);
     } else {
       scrollViewRef.current?.scrollTo({
         x: offSet.value - size,
         animated: true,
       });
       offSet.value = offSet.value - size;
-      setNextSympt(setCurrentSympt((prev:any) => prev - 1));
+      setCurrentSympt((prev: number) => prev - 1);
+      setNextSympt(offSet.value);
     }
   };
 
@@ -79,27 +89,29 @@ const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }: any) => 
     if (currentSympt === 4) {
       scrollViewRef.current?.scrollTo({ x: 0, animated: true });
       offSet.value = 0;
-      setNextSympt(setCurrentSympt(0));
+      setCurrentSympt(0);
+      setNextSympt(offSet.value);
     } else {
       scrollViewRef.current?.scrollTo({
         x: offSet.value + size,
         animated: true,
       });
       offSet.value = offSet.value + size;
-      setNextSympt(setCurrentSympt((prev: any) => prev + 1));
+      setCurrentSympt((prev: number) => prev + 1);
+      setNextSympt(offSet.value);
     }
   };
 
   return (
     <View>
       <Animated.ScrollView
-        ref={() => scrollViewRef}
+        ref={scrollViewRef}
         horizontal
         showsHorizontalScrollIndicator={false}
         bounces={false}
         scrollEventThrottle={16}
         snapToInterval={size}
-        decelerationRate='fast'
+        decelerationRate="fast"
         onScroll={onScroll}
         onMomentumScrollEnd={(e) => {
           offSet.value = e.nativeEvent.contentOffset.x;
@@ -129,64 +141,40 @@ const Carrousel = ({ data, pagination, setCurrentSympt, currentSympt }: any) => 
           );
         })}
       </Animated.ScrollView>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          position: 'absolute',
-          width: '100%',
-          top: '20%',
-        }}
-      >
-        <Pressable
+      {scrollOnObjectClick && (
+        <View
           style={{
-            backgroundColor: 'transparent',
-            display: 'flex',
-            transform: [{ rotate: '180deg' }],
-            height: Dimensions.get('window').height * 0.15,
-            width: Dimensions.get('window').width * 0.25,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            position: "absolute",
+            width: "100%",
+            top: "20%",
           }}
-          onPress={() => goBefore()}
-        />
-        <Pressable
-          style={{
-            backgroundColor: 'transparent',
-            display: 'flex',
-            transform: [{ rotate: '180deg' }],
-            height: Dimensions.get('window').height * 0.15,
-            width: Dimensions.get('window').width * 0.25,
-          }}
-          onPress={() => goNext()}
-        />
-      </View>
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          transform: [{ translateY: -Dimensions.get('window').height * 0.02 }],
-        }}
-      >
-        <Ionicons
-          name='caret-forward-outline'
-          size={Dimensions.get('window').width * 0.06}
-          style={{
-            position: 'relative',
-            display: 'flex',
-            transform: [{ rotate: '180deg' }],
-          }}
-          color='#6EC36C'
-          onPress={() => goBefore()}
-        />
-        <Ionicons
-          name='caret-forward-outline'
-          size={Dimensions.get('window').width * 0.06}
-          style={{ position: 'relative', display: 'flex' }}
-          color='#6EC36C'
-          onPress={() => goNext()}
-        />
-      </View>
+        >
+          <Pressable
+            style={{
+              backgroundColor: "transparent",
+              display: "flex",
+              transform: [{ rotate: "180deg" }],
+              height: Dimensions.get("window").height * 0.15,
+              width: Dimensions.get("window").width * 0.25,
+            }}
+            onPress={() => goBefore()}
+          />
+          <Pressable
+            style={{
+              backgroundColor: "transparent",
+              display: "flex",
+              transform: [{ rotate: "180deg" }],
+              height: Dimensions.get("window").height * 0.15,
+              width: Dimensions.get("window").width * 0.25,
+            }}
+            onPress={() => goNext()}
+          />
+        </View>
+      )}
+      {arrow && <ArrowForCarroussel goNext={goNext} goBefore={goBefore} />}
       {pagination && <Pagination data={data} x={x} size={size} />}
     </View>
   );
@@ -197,15 +185,15 @@ export default Carrousel;
 const styles = StyleSheet.create({
   imageContainer: {
     borderRadius: 20,
-    overflow: 'hidden',
+    overflow: "hidden",
     marginTop: 64,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   image: {
-    width: '100%',
-    height: 'auto',
+    width: "100%",
+    height: "auto",
     aspectRatio: 1.08,
   },
 });
