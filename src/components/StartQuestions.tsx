@@ -1,23 +1,28 @@
+import React from "react";
 import Animated, {
   useAnimatedStyle,
   FadeInDown,
   withRepeat,
   withSequence,
   withTiming,
-} from 'react-native-reanimated';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
-import React from 'react';
+} from "react-native-reanimated";
+import { View, Text, Dimensions, StyleSheet } from "react-native";
+import { useAtom } from "jotai";
+import { isButtonPressedAtom, userStepAtom } from "../utils/store";
 
-interface StartQuestionProps {
-  isPressed: {
-    startButton: boolean;
-    backButton: boolean;
-    stopButton: boolean;
-  }
-  startQuestions: () => boolean;
-}
+const StartQuestions = () => {
+  const [isButtonPressed, setIsButtonPressed] = useAtom(isButtonPressedAtom);
+  const [, setUserStep] = useAtom(userStepAtom);
 
-const StartQuestions = ({ isPressed, startQuestions }: StartQuestionProps) => {
+  const startQuestions = () => {
+    setIsButtonPressed(true);
+    setTimeout(() => {
+      setUserStep((previousStep) => previousStep + 1);
+      setIsButtonPressed(false);
+    }, 50);
+    return true;
+  };
+
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
       {
@@ -29,7 +34,6 @@ const StartQuestions = ({ isPressed, startQuestions }: StartQuestionProps) => {
       },
     ],
   }));
-
   return (
     <View style={styles.container}>
       <Animated.View
@@ -39,21 +43,21 @@ const StartQuestions = ({ isPressed, startQuestions }: StartQuestionProps) => {
         <View style={styles.welcome2Container}>
           <Text
             style={{
-              color: 'white',
-              fontSize: Dimensions.get('window').width * 0.04,
-              textAlign: 'center',
+              color: "white",
+              fontSize: Dimensions.get("window").width * 0.04,
+              textAlign: "center",
               marginTop: 10,
-              fontWeight: 'bold',
+              fontWeight: "bold",
             }}
           >
             Bienvenue sur le questionnaire Epitact
           </Text>
           <Text
             style={{
-              color: '#6EC36C',
-              fontSize: Dimensions.get('window').width * 0.03,
+              color: "#6EC36C",
+              fontSize: Dimensions.get("window").width * 0.03,
               margin: 10,
-              textAlign: 'center',
+              textAlign: "center",
             }}
           >
             Dites-nous quels sont vos besoins de santé et vos symptômes, nous
@@ -64,21 +68,13 @@ const StartQuestions = ({ isPressed, startQuestions }: StartQuestionProps) => {
           style={[
             {
               ...styles.containerStartQuestion,
-              backgroundColor: isPressed.startButton ? '#5C8E5B' : '#6EC36C',
+              backgroundColor: isButtonPressed ? "#5C8E5B" : "#6EC36C",
             },
             animatedStyle,
           ]}
-          onStartShouldSetResponder={() => startQuestions()}
+          onStartShouldSetResponder={startQuestions}
         >
-          <Text
-            style={{
-              ...styles.textStyle,
-              color: 'white',
-              fontWeight: 'bold',
-            }}
-          >
-            Démarrer le questionnaire
-          </Text>
+          <Text style={styles.textStyle}>Démarrer le questionnaire</Text>
         </Animated.View>
       </Animated.View>
     </View>
@@ -90,37 +86,38 @@ export default StartQuestions;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     zIndex: 100,
   },
   welcomeContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   welcome2Container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: Dimensions.get('window').width * 0.9,
-    backgroundColor: '#4A88D0',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: Dimensions.get("window").width * 0.9,
+    backgroundColor: "#4A88D0",
     borderRadius: 35,
     marginBottom: 20,
-    height: Dimensions.get('window').height * 0.15,
+    height: Dimensions.get("window").height * 0.15,
   },
   containerStartQuestion: {
-    height: Dimensions.get('window').height * 0.05,
-    width: Dimensions.get('window').width * 0.5,
+    height: Dimensions.get("window").height * 0.05,
+    width: Dimensions.get("window").width * 0.5,
     borderRadius: 100,
     elevation: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   textStyle: {
-    textAlign: 'center',
-    fontSize: Dimensions.get('window').width * 0.03,
-    fontWeight: 'normal',
+    textAlign: "center",
+    fontSize: Dimensions.get("window").width * 0.03,
+    fontWeight: "bold",
+    color: "white",
   },
 });

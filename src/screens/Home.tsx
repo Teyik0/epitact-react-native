@@ -6,7 +6,7 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import React, { useState, useEffect, SetStateAction } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Carrousel } from "../components";
 import { data } from "../utils/data";
 import logo from "../assets/logo.png";
