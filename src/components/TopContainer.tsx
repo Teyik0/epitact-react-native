@@ -31,7 +31,7 @@ const TopContainer = ({
           opacity: userStep !== 0 ? 1 : 0,
         }}
         onPress={() =>
-          goBackToQuestion ? goBackToQuestion : backToPreviousStep()
+          goBackToQuestion ? goBackToQuestion() : backToPreviousStep()
         }
       >
         <Ionicons

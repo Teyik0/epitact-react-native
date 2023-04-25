@@ -23,13 +23,13 @@ const Products = ({ route, navigation }: ProductsProps) => {
 
   const [, setIsButtonPressed] = useAtom(isButtonPressedAtom);
   const goBackToQuestion = () => {
-    console.log("test");
     setIsButtonPressed(true);
     setTimeout(() => {
       setIsButtonPressed(false);
-      navigation?.goBack();
+      navigation.goBack();
     }, 100);
   };
+
   return (
     <>
       <View
