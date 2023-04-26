@@ -1,7 +1,6 @@
 import { View, Image, Text, StyleSheet, Dimensions } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Navbar, TopContainer } from "../components";
-import { RouteProp } from "@react-navigation/native";
 import { useAtom } from "jotai";
 import { isButtonPressedAtom } from "../utils/store";
 
