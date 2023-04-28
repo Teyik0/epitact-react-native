@@ -4,9 +4,7 @@ import {
   useWindowDimensions,
   Dimensions,
   Pressable,
-  ScrollView,
 } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -71,18 +69,18 @@ const Carrousel = ({
   const goBefore = () => {
     if (currentSympt === 0) {
       scrollViewRef.current?.scrollToEnd({ animated: true });
-      offSet.value = offSet.value + 4 * size;
+      offSet.value = size * 4;
       setCurrentSympt(4);
-      setNextSympt(offSet.value);
     } else {
+      offSet.value = offSet.value - size;
       scrollViewRef.current?.scrollTo({
         x: offSet.value - size,
         animated: true,
       });
-      offSet.value = offSet.value - size;
       setCurrentSympt((prev: number) => prev - 1);
-      setNextSympt(offSet.value);
     }
+    // console.log("offset.value:", offSet.value);
+    // console.log("symptome:", currentSympt);
   };
 
   const goNext = () => {
@@ -90,16 +88,16 @@ const Carrousel = ({
       scrollViewRef.current?.scrollTo({ x: 0, animated: true });
       offSet.value = 0;
       setCurrentSympt(0);
-      setNextSympt(offSet.value);
     } else {
+      offSet.value = offSet.value + size;
       scrollViewRef.current?.scrollTo({
         x: offSet.value + size,
         animated: true,
       });
-      offSet.value = offSet.value + size;
       setCurrentSympt((prev: number) => prev + 1);
-      setNextSympt(offSet.value);
     }
+    // console.log("offset.value:", offSet.value);
+    // console.log("symptome:", currentSympt);
   };
 
   return (
